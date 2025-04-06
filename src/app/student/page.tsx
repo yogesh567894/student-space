@@ -1,9 +1,9 @@
-// src/app/student/page.tsx
-"use client";
-import withAuth from "../hoc/withAuth";
+// // src/app/student/page.tsx
+// "use client";
+// import withAuth from "../hoc/withAuth";
 
-const StudentPage: React.FC = () => {
-  return <div>Welcome Student!</div>;
-};
+// const StudentPage: React.FC = () => {
+//   return <div>Welcome Student!</div>;
+// };
 
-export default withAuth(StudentPage, ["STUDENT"]);
+// export default withAuth(StudentPage, ["STUDENT"]);

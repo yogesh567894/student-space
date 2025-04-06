@@ -1,9 +1,9 @@
-// src/app/teacher/page.tsx
-"use client";
-import withAuth from "../hoc/withAuth";
+// // src/app/teacher/page.tsx
+// "use client";
+// import withAuth from "../hoc/withAuth";
 
-const TeacherPage: React.FC = () => {
-  return <div>Welcome Teacher!</div>;
-};
+// const TeacherPage: React.FC = () => {
+//   return <div>Welcome Teacher!</div>;
+// };
 
-export default withAuth(TeacherPage, ["TEACHER"]);
+// export default withAuth(TeacherPage, ["TEACHER"]);
