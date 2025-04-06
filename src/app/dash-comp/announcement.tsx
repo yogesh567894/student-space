@@ -39,7 +39,7 @@ const Announcement = () => {
   };
 
   return (
-    <Card className="bg-[#1E3A8A] text-white rounded-lg overflow-hidden">
+    <Card className="bg-[#1E3A8A] text-white rounded-lg overflow-hidden mb-6">
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-bold">{announcements[currentIndex].title}</h3>

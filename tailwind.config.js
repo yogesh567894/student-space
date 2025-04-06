@@ -8,6 +8,8 @@ module.exports = {
         colors: {
           blue: {
             800: '#1E3A8A',
+            700: '#1D4ED8',
+            600: '#2563EB',
           },
         },
       },
