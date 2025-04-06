@@ -1,7 +1,7 @@
 // src/app/layout.tsx
-import localFont from 'next/font/local';
+// import localFont from 'next/font/local';
 import "./globals.css";
-import Link from "next/link";
+// import Link from "next/link";
 
 
 {/*const satoshi = localFont({

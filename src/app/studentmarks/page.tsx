@@ -1,23 +1,22 @@
 "use client";
 import React, { useState } from 'react';
-import { Bell, Menu } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+// import { Bell, Menu } from 'lucide-react';
+// import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
-// <<<<<<< HEAD
-// =======
+ 
 import Sidebar from "@/app/student-dash/components/Sidebar";
-// >>>>>>> roleselectionpage
+
 
 type SubjectMarks = {
   [key: string]: number[];
 };
 
-type ChartDataItem = {
-  name: string;
-  [key: string]: string | number;
-};
+// type ChartDataItem = {
+//   name: string;
+//   [key: string]: string | number;
+// };
 
 const subjects: string[] = ['Math', 'English', 'BST', 'Accounts', 'Economic'];
 const testNames: string[] = ['FT1', 'FT2', 'FT3', 'FT4'];
@@ -47,33 +46,7 @@ const StudentMarksPage: React.FC = () => {
   }));
 
   return (
-// <<<<<<< HEAD
-//     <div className="min-h-screen bg-gray-100">
-//       {/* Mobile Header */}
-//       <header className="md:hidden flex items-center justify-between bg-white p-4">
-//         <Menu className="h-6 w-6 text-gray-600" />
-//         <h1 className="text-xl font-bold text-[#1E3A8A]">Student Marks</h1>
-//         <div className="flex items-center gap-4">
-//           <Bell className="h-6 w-6 text-gray-600" />
-//           <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
-//             <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
-//           </div>
-//         </div>
-//       </header>
-
-//       {/* Desktop Header */}
-//       <header className="hidden md:flex items-center justify-between bg-white p-6">
-//         <h1 className="text-2xl font-bold text-[#1E3A8A]">Student Marks</h1>
-//         <div className="flex items-center gap-4">
-//           <Bell className="h-6 w-6 text-gray-600 cursor-pointer" />
-//           <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden cursor-pointer">
-//             <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
-//           </div>
-//         </div>
-//       </header>
-
-//       <div className="p-4 md:p-6 max-w-4xl mx-auto">
-// =======
+ 
     <div className="flex h-screen bg-white">
       {/* Sidebar */}
       <Sidebar />
@@ -82,7 +55,7 @@ const StudentMarksPage: React.FC = () => {
       <div className="flex-1 overflow-auto p-6">
         <h1 className="text-2xl font-bold mb-6">Student Marks</h1>
         
-{/* >>>>>>> roleselectionpage */}
+ 
         <Card className="mb-6">
           <CardContent className="p-4">
             <h2 className="text-lg font-semibold mb-4">Overall Performance</h2>

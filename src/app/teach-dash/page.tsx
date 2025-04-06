@@ -59,7 +59,7 @@ const EducationDashboard = () => {
                   <h3 className="font-bold mb-1">Meeting Remainder</h3>
                   <p className="text-right text-sm mb-2">10:40 am, 14 Nov 2024</p>
                   <div className="text-sm">
-                    <p>Teacher's meet for the next event to be conducted.</p>
+                    <p>Teacher&apos;s meet for the next event to be conducted.</p>
                     <p>Time : 10:40 am, 14 Nov 2024</p>
                     <p>Venue : 2nd floor Staff Room</p>
                   </div>
@@ -181,7 +181,7 @@ const EducationDashboard = () => {
                       </div>
                       <div className="text-right mr-4">
                         <p className="font-medium">Rs. 3,800.00</p>
-                        <p className="text-sm text-gray-500">Due 18 Dec '24</p>
+                        <p className="text-sm text-gray-500">Due 18 Dec &apos;24</p>
                       </div>
                     </div>
                     <Button variant="outline" className="m-2 bg-blue-800 text-white hover:bg-blue-700 hover:text-white text-xs h-auto py-1">
@@ -205,7 +205,7 @@ const EducationDashboard = () => {
                   </p>
                   <div className="text-sm text-gray-500">
                     <p>Teacher : Divya S</p>
-                    <p>Date : 28 Nov '24</p>
+                    <p>Date : 28 Nov &apos;24</p>
                   </div>
                   <div className="flex items-center gap-2 mt-4">
                     <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
@@ -222,7 +222,7 @@ const EducationDashboard = () => {
                     Class projector not working efficiently.
                   </p>
                   <div className="text-sm text-gray-500">
-                    <p>Date : 28 Nov '24</p>
+                    <p>Date : 28 Nov &apos;24</p>
                   </div>
                   <div className="flex items-center gap-2 mt-4">
                     <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
@@ -326,7 +326,7 @@ const EducationDashboard = () => {
                   <div>
                     <h4 className="font-medium">Math Notes</h4>
                     <p className="text-xs text-gray-500">Integration notes for Chapter 8</p>
-                    <p className="text-xs text-gray-500">Updated on 22 Nov '24</p>
+                    <p className="text-xs text-gray-500">Updated on 22 Nov &apos;24</p>
                     <div className="flex items-center gap-2 mt-2">
                       <div className="h-5 w-5 rounded-full bg-slate-300 overflow-hidden">
                         <User className="h-full w-full p-0.5" />

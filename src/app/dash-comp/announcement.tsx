@@ -28,15 +28,15 @@ const announcements = [
 const Announcement = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % announcements.length);
-  };
+  // const handleNext = () => {
+  //   setCurrentIndex((prevIndex) => (prevIndex + 1) % announcements.length);
+  // };
 
-  const handlePrev = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + announcements.length) % announcements.length
-    );
-  };
+  // const handlePrev = () => {
+  //   setCurrentIndex(
+  //     (prevIndex) => (prevIndex - 1 + announcements.length) % announcements.length
+  //   );
+  // };
 
   return (
     <Card className="bg-[#1E3A8A] text-white rounded-lg overflow-hidden">

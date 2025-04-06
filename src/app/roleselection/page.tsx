@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -47,7 +47,7 @@ export default function RoleSelection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <RoleCard 
             title="Student"
-            imagePath="/student.png" 
+            // imagePath="/student.png" 
             isSelected={selectedRole === "student"}
             onClick={() => handleRoleSelect("student")}
             description="Access assignments, marks, and attendance"
@@ -55,7 +55,7 @@ export default function RoleSelection() {
           
           <RoleCard 
             title="Teacher"
-            imagePath="/teacher.png" 
+            // imagePath="/teacher.png" 
             isSelected={selectedRole === "teacher"}
             onClick={() => handleRoleSelect("teacher")}
             description="Manage classes, assignments, and student evaluation"
@@ -63,7 +63,7 @@ export default function RoleSelection() {
           
           <RoleCard 
             title="Admin"
-            imagePath="/admin.png" 
+            // imagePath="/admin.png" 
             isSelected={selectedRole === "admin"}
             onClick={() => handleRoleSelect("admin")}
             description="Oversee school operations and user management"
@@ -84,13 +84,13 @@ export default function RoleSelection() {
 
 interface RoleCardProps {
   title: string;
-  imagePath: string;
+  // imagePath: string;
   isSelected: boolean;
   onClick: () => void;
   description: string;
 }
 
-function RoleCard({ title, imagePath, isSelected, onClick, description }: RoleCardProps) {
+function RoleCard({ title, isSelected, onClick, description }: RoleCardProps) {
   return (
     <Card 
       className={`overflow-hidden cursor-pointer transition-all duration-200 transform hover:scale-105 ${

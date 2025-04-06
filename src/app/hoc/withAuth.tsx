@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../lib/supabase";
 
-type WithAuthProps = {
-  allowedRoles: string[];
-};
+// type WithAuthProps = {
+//   allowedRoles: string[];
+// };
 
 const withAuth = <P extends object>(
   WrappedComponent: React.ComponentType<P>,

@@ -5,15 +5,14 @@ import { useState } from "react";
 import { Bell, BookOpen, ChevronDown, Info } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart } from "@/components/ui/line-chart";
 import Attendance from "../dash-comp/attendance";
 import Announcement from "../dash-comp/announcement";
-// <<<<<<< HEAD
-// =======
+
 import Sidebar from "@/app/student-dash/components/Sidebar";
 import Image from "next/image";
-// >>>>>>> roleselectionpage
+ 
 
 export default function Dashboard() {
   const [selectedSubject, setSelectedSubject] = useState("Maths");
@@ -33,54 +32,14 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-white">
       {/* Sidebar */}
-{/* <<<<<<< HEAD
-      <div className="w-64 bg-[#1E3A8A] text-white">
-        <div className="p-6">
-          <h1 className="text-2xl font-bold mb-10">Dashboard</h1>
-          <nav className="space-y-1">
-            {[
-              "Dashboard",
-              "Attendance",
-              "Events",
-              "Marks",
-              "Timetable",
-              "Exam Schedule",
-              "Fee Payment",
-              "Digital Notes Space",
-              "Enquiry",
-              "Academic Calendar",
-              "Subjects and Syllabus",
-            ].map((item) => (
-              <div
-                key={item}
-                className={`py-2 px-4 hover:bg-blue-800 rounded cursor-pointer ${
-                  item === "Dashboard" ? "bg-blue-800" : ""
-                }`}
-              >
-                {item}
-              </div>
-            ))}
-          </nav>
-        </div>
-      </div>
-======= */}
+ 
       <Sidebar />
-{/* >>>>>>> roleselectionpage */}
+ 
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         {/* Header */}
-{/* <<<<<<< HEAD
-        <header className="bg-[#1E3A8A] p-6 text-white relative" style={{backgroundImage: "url('/mock-city-bg.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
-          <div className="absolute top-4 right-4 flex items-center gap-4">
-            <Bell className="h-6 w-6 cursor-pointer" />
-            <div className="h-10 w-10 rounded-full bg-gray-300 cursor-pointer overflow-hidden">
-              <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
-            </div>
-          </div>
-          <h2 className="text-2xl font-bold">Aryan Patel, 11A2</h2>
-          <p className="text-lg">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
-======= */}
+ 
         <header className="bg-[#1E3A8A] p-6 text-white relative">
           <div className="absolute inset-0 z-0">
             <Image 
@@ -101,7 +60,7 @@ export default function Dashboard() {
             <h2 className="text-2xl font-bold">Aryan Patel, 11A2</h2>
             <p className="text-lg">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
           </div>
-{/* >>>>>>> roleselectionpage */}
+
         </header>
 
         {/* Content */}
@@ -150,7 +109,7 @@ export default function Dashboard() {
                   </div>
                   <div className="w-1/6 text-right">
                     <p className="font-medium">Rs. 36,800.00</p>
-                    <p className="text-sm text-gray-500">Due 18 Nov' 24</p>
+                    <p className="text-sm text-gray-500">Due 18 Nov&apos; 24</p>
                   </div>
                   <div className="w-1/4 flex items-center justify-center">
                     <div className="flex items-center gap-2">
@@ -180,7 +139,7 @@ export default function Dashboard() {
                   </div>
                   <div className="w-1/6 text-right">
                     <p className="font-medium">Rs. 250.00</p>
-                    <p className="text-sm text-gray-500">Due 18 Nov' 24</p>
+                    <p className="text-sm text-gray-500">Due 18 Nov&apos; 24</p>
                   </div>
                   <div className="w-1/4 flex items-center justify-center">
                     <div className="flex items-center gap-2">
@@ -210,7 +169,7 @@ export default function Dashboard() {
                   </div>
                   <div className="w-1/6 text-right">
                     <p className="font-medium">Rs. 250.00</p>
-                    <p className="text-sm text-gray-500">Due 18 Nov' 24</p>
+                    <p className="text-sm text-gray-500">Due 18 Nov&apos; 24</p>
                   </div>
                   <div className="w-1/4 flex items-center justify-center">
                     <div className="flex items-center gap-2">
@@ -361,11 +320,7 @@ export default function Dashboard() {
           </Card>
 
           {/* Focus Mode */}
-{/* <<<<<<< HEAD
-          <div className="bg-[#1A2234] rounded-lg overflow-hidden text-white" 
-               style={{backgroundImage: "url('/mock-night-city.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
-            <div className="p-6 flex flex-col items-center justify-center h-full">
-======= */}
+ 
           <div className="bg-[#1A2234] rounded-lg overflow-hidden text-white relative">
             <div className="absolute inset-0 z-0">
               <Image 
@@ -377,7 +332,7 @@ export default function Dashboard() {
               />
             </div>
             <div className="p-6 flex flex-col items-center justify-center h-full relative z-10">
-{/* >>>>>>> roleselectionpage */}
+ 
               <h3 className="text-2xl font-bold mb-2">Focus Mode</h3>
               <p className="mb-6">Pomodoro Timer</p>
             </div>
@@ -406,7 +361,7 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center">
                   <div>
                     <p>Integration notes for Chapter 8</p>
-                    <p className="text-sm text-gray-500">Uploaded on 22 Nov'24</p>
+                    <p className="text-sm text-gray-500">Uploaded on 22 Nov&apos;24</p>
                   </div>
                   <Info className="h-5 w-5 text-gray-400" />
                 </div>
@@ -425,7 +380,7 @@ export default function Dashboard() {
             <CardContent>
               <div>
                 <p className="font-medium">Mathematics - Cluster Examinations</p>
-                <p>27 Nov'24 - 9:00 am - 11:30 am</p>
+                <p>27 Nov&apos;24 - 9:00 am - 11:30 am</p>
               </div>
             </CardContent>
           </Card>

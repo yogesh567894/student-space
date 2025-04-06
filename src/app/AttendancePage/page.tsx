@@ -1,15 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-// <<<<<<< HEAD
-// import { CheckCircle, XCircle, Clock } from "lucide-react";
-// =======
+
 import { CheckCircle, XCircle, Clock, Bell, User } from "lucide-react";
 import Sidebar from "@/app/student-dash/components/Sidebar";
-// >>>>>>> roleselectionpage
+
 
 const AttendancePage: React.FC = () => {
   const [overviewTimeframe, setOverviewTimeframe] = useState<'Year' | 'Month'>('Month');
@@ -185,221 +183,7 @@ const AttendancePage: React.FC = () => {
   };
 
   return (
-// <<<<<<< HEAD
-//     <div className="max-w-6xl mx-auto p-4">
-//       <h1 className="text-2xl font-bold text-[#1E3A8A] mb-6">Attendance</h1>
-      
-//       {/* Attendance Overview */}
-//       <div className="mb-6">
-//         <div className="flex items-center mb-4">
-//           <div className="inline-flex rounded-md overflow-hidden border">
-//             <button 
-//               className={`px-4 py-1.5 text-sm ${overviewTimeframe === 'Year' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-700'}`}
-//               onClick={() => setOverviewTimeframe('Year')}
-//             >
-//               Year
-//             </button>
-//             <button 
-//               className={`px-4 py-1.5 text-sm ${overviewTimeframe === 'Month' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-700'}`}
-//               onClick={() => setOverviewTimeframe('Month')}
-//             >
-//               Month
-//             </button>
-//           </div>
-//         </div>
-        
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//           <Card className="bg-white shadow-sm">
-//             <CardContent className="p-4">
-//               <p className="text-sm text-gray-600">No. of days working</p>
-//               <p className="text-4xl font-bold text-[#1E3A8A] text-center mt-2">{attendanceData.working}</p>
-//             </CardContent>
-//           </Card>
-          
-//           <Card className="bg-white shadow-sm">
-//             <CardContent className="p-4">
-//               <p className="text-sm text-gray-600">No. of days holidays</p>
-//               <p className="text-4xl font-bold text-[#1E3A8A] text-center mt-2">{attendanceData.holidays}</p>
-//             </CardContent>
-//           </Card>
-          
-//           <Card className="bg-white shadow-sm">
-//             <CardContent className="p-4">
-//               <p className="text-sm text-gray-600">No. of days half-day</p>
-//               <p className="text-4xl font-bold text-[#1E3A8A] text-center mt-2">{attendanceData.halfDay}</p>
-//             </CardContent>
-//           </Card>
-//         </div>
-//       </div>
-      
-//       {/* Attendance Chart */}
-//       <div className="mb-6">
-//         <div className="flex items-center mb-4">
-//           <div className="inline-flex rounded-md overflow-hidden border">
-//             <button 
-//               className={`px-3 py-1.5 text-sm ${chartTimeframe === 'Year' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-700'}`}
-//               onClick={() => setChartTimeframe('Year')}
-//             >
-//               Year
-//             </button>
-//             <button 
-//               className={`px-3 py-1.5 text-sm ${chartTimeframe === 'Month' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-700'}`}
-//               onClick={() => setChartTimeframe('Month')}
-//             >
-//               Month
-//             </button>
-//             <button 
-//               className={`px-3 py-1.5 text-sm ${chartTimeframe === 'Week' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-700'}`}
-//               onClick={() => setChartTimeframe('Week')}
-//             >
-//               Week
-//             </button>
-//           </div>
-//         </div>
-        
-//         <div className="h-[300px] w-full bg-[#f0f4ff] rounded-lg p-4">
-//           <ResponsiveContainer width="100%" height="100%">
-//           <BarChart data={getChartData()} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-//                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
-//                 <XAxis 
-//                     dataKey="name" 
-//                     axisLine={false} 
-//                     tickLine={false} 
-//                     tick={{ fill: "#6b7280", fontSize: 12 }} 
-//                 />
-//                 <YAxis 
-//                     axisLine={false} 
-//                     tickLine={false} 
-//                     tick={{ fill: "#6b7280", fontSize: 12 }} 
-//                 />
-//                 <Tooltip content={<CustomTooltip />} />
-//                 <Legend 
-//                     iconType="circle" 
-//                     wrapperStyle={{ paddingTop: 10 }} 
-//                 />
-//                 <Bar dataKey="Present" fill="#1E3A8A" radius={[4, 4, 0, 0]} />
-//                 <Bar dataKey="Absent" fill="#8da2fb" radius={[4, 4, 0, 0]} />
-//             </BarChart>
-
-//           </ResponsiveContainer>
-//         </div>
-//       </div>
-      
-//       {/* Recent Leave Request */}
-//       <div className="mb-6">
-//         <div className="flex justify-between items-center mb-4">
-//           <h2 className="text-lg font-semibold">Recent Leave Request</h2>
-//           <Button 
-//             className="bg-[#1E3A8A] text-white hover:bg-blue-700"
-//             onClick={() => setShowNewLeaveForm(!showNewLeaveForm)}
-//           >
-//             Apply New
-//           </Button>
-//         </div>
-        
-//         {showNewLeaveForm && (
-//           <Card className="mb-4">
-//             <CardContent className="p-4">
-//               <form onSubmit={handleNewLeaveSubmit}>
-//                 <div className="space-y-4">
-//                   <div>
-//                     <label className="block text-sm font-medium mb-1">Leave Type</label>
-//                     <select 
-//                       className="w-full p-2 border rounded-md"
-//                       value={newLeave.type}
-//                       onChange={(e) => setNewLeave({...newLeave, type: e.target.value})}
-//                       required
-//                     >
-//                       <option>Medical Leave</option>
-//                       <option>On Duty</option>
-//                       <option>Others</option>
-//                     </select>
-//                   </div>
-                  
-//                   <div>
-//                     <label className="block text-sm font-medium mb-1">Reason</label>
-//                     <input 
-//                       type="text" 
-//                       className="w-full p-2 border rounded-md"
-//                       value={newLeave.reason}
-//                       onChange={(e) => setNewLeave({...newLeave, reason: e.target.value})}
-//                       required
-//                     />
-//                   </div>
-                  
-//                   <div className="grid grid-cols-2 gap-4">
-//                     <div>
-//                       <label className="block text-sm font-medium mb-1">Start Date</label>
-//                       <input 
-//                         type="text" 
-//                         className="w-full p-2 border rounded-md"
-//                         placeholder="DD MMM'YY"
-//                         value={newLeave.startDate}
-//                         onChange={(e) => setNewLeave({...newLeave, startDate: e.target.value})}
-//                         required
-//                       />
-//                     </div>
-//                     <div>
-//                       <label className="block text-sm font-medium mb-1">End Date</label>
-//                       <input 
-//                         type="text" 
-//                         className="w-full p-2 border rounded-md"
-//                         placeholder="DD MMM'YY"
-//                         value={newLeave.endDate}
-//                         onChange={(e) => setNewLeave({...newLeave, endDate: e.target.value})}
-//                         required
-//                       />
-//                     </div>
-//                   </div>
-                  
-//                   <div className="flex justify-end gap-2">
-//                     <Button 
-//                       type="button" 
-//                       variant="outline"
-//                       onClick={() => setShowNewLeaveForm(false)}
-//                     >
-//                       Cancel
-//                     </Button>
-//                     <Button 
-//                       type="submit" 
-//                       className="bg-[#1E3A8A] text-white hover:bg-blue-700"
-//                     >
-//                       Submit
-//                     </Button>
-//                   </div>
-//                 </div>
-//               </form>
-//             </CardContent>
-//           </Card>
-//         )}
-        
-//         <Card>
-//           <CardContent className="p-4">
-//             <div className="space-y-4">
-//               {leaveRequests.map((request) => (
-//                 <div key={request.id} className={`flex items-start border-l-4 pl-4 py-2 ${getBorderColor(request.status)}`}>
-//                   <div className="flex-grow">
-//                     <p className="font-semibold">{request.type}</p>
-//                     <p className="text-sm text-gray-600">{request.reason}</p>
-//                     <p className="text-sm">{request.startDate} - {request.endDate}</p>
-//                     <p className="text-sm text-gray-600">{request.days}</p>
-//                   </div>
-//                   <div className="flex items-center gap-1">
-//                     {getStatusIcon(request.status)}
-//                     <span className={`text-sm ${
-//                       request.status === 'Accepted' ? 'text-green-600' : 
-//                       request.status === 'Rejected' ? 'text-red-600' : 
-//                       'text-gray-500'
-//                     }`}>
-//                       {request.status}
-//                     </span>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </CardContent>
-//         </Card>
-// =======
+    
     <div className="flex min-h-screen h-screen overflow-hidden bg-white">
       {/* Sidebar */}
       <Sidebar />
@@ -633,7 +417,7 @@ const AttendancePage: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-{/* >>>>>>> roleselectionpage */}
+
       </div>
     </div>
   );
