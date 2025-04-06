@@ -25,11 +25,11 @@ import Marks from "../dash-comp/marks";
 import FocusMode from "../dash-comp/focusmode";
 // >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
 
-const marksData = [
-  { name: "FT1", score: 28, total: 35 },
-  { name: "FT2", score: 28, total: 35 },
-  { name: "FT3", score: 28, total: 35 },
-];
+// const marksData = [
+//   { name: "FT1", score: 28, total: 35 },
+//   { name: "FT2", score: 28, total: 35 },
+//   { name: "FT3", score: 28, total: 35 },
+// ];
 
 export default function StudentDashboard() {
   const [isMobile, setIsMobile] = useState(false);
