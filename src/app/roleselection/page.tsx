@@ -71,7 +71,7 @@ export default function RoleSelection() {
         </div>
         
         <Button 
-          className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-2 rounded-md transition-all"
+          className="bg-blue-700 hover:bg-[#1E3A8A] text-white px-8 py-2 rounded-md transition-all"
           disabled={!selectedRole}
           onClick={handleContinue}
         >
