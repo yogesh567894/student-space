@@ -4,6 +4,7 @@
 // import Dashboard from "@/app/student-dash/page";
 // import AttendancePage from "@/app/AttendancePage/page";
 // import LoginPage from "./login/page";
+// import LoginPage from "./login/page";
 import RoleSelection from "./roleselection/page";
 
 export default function Home() {
@@ -106,6 +107,7 @@ export default function Home() {
     //   </footer>
     // </div>
     <RoleSelection />
+    // <LoginPage />
     // <Dashboard />
     // <AttendancePage />
  
