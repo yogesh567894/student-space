@@ -2,18 +2,18 @@
 
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-<<<<<<< HEAD
-// import { Info } from "lucide-react";
+// <<<<<<< HEAD
+// // import { Info } from "lucide-react";
  
-import Sidebar from "@/app/student-dash/components/Sidebar";
+// import Sidebar from "@/app/student-dash/components/Sidebar";
 
-=======
+// =======
 import { Button } from "@/components/ui/button";
-import { Info, Menu, Bell } from "lucide-react";
+import { Menu, Bell } from "lucide-react";
 import Sidebar from "@/app/student-dash/components/Sidebar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Image from "next/image";
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+// >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
 
 interface ClassSession {
   subject: string;
@@ -113,33 +113,33 @@ const ClassTimetablePage = () => {
   ];
 
   return (
-<<<<<<< HEAD
+// <<<<<<< HEAD
  
-    <div className="flex h-screen bg-white">
-      {/* Sidebar */}
-      <Sidebar />
+//     <div className="flex h-screen bg-white">
+//       {/* Sidebar */}
+//       <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Class Timetable</h1>
+//       {/* Main Content */}
+//       <div className="flex-1 overflow-auto p-6">
+//         <h1 className="text-2xl font-bold mb-6">Class Timetable</h1>
         
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2">
-            <div className="flex space-x-2 mb-4">
-              {days.map((day) => (
-                <button
-                  key={day}
-                  className={`px-4 py-2 rounded-md ${
-                    activeDay === day
-                      ? "bg-[#1E3A8A] text-white"
-                      : "bg-white text-gray-700 border"
-                  }`}
-                  onClick={() => setActiveDay(day)}
-                >
-                  {day}
-                </button>
-              ))}
-=======
+//         <div className="grid grid-cols-3 gap-6">
+//           <div className="col-span-2">
+//             <div className="flex space-x-2 mb-4">
+//               {days.map((day) => (
+//                 <button
+//                   key={day}
+//                   className={`px-4 py-2 rounded-md ${
+//                     activeDay === day
+//                       ? "bg-[#1E3A8A] text-white"
+//                       : "bg-white text-gray-700 border"
+//                   }`}
+//                   onClick={() => setActiveDay(day)}
+//                 >
+//                   {day}
+//                 </button>
+//               ))}
+// =======
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar - Only visible on desktop */}
       {!isMobile && <Sidebar />}
@@ -155,7 +155,7 @@ const ClassTimetablePage = () => {
               <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
                 <Image src="/mock-profile.jpg" alt="Profile" width={32} height={32} className="object-cover" />
               </div>
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
             </div>
           </header>
         ) : (
@@ -249,7 +249,7 @@ const ClassTimetablePage = () => {
             </div>
           </div>
 
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
         <div className="mt-8">
           <h2 className="text-xl font-bold mb-4 text-[#1E3A8A]">Exam Schedule</h2>
           <Card>
@@ -258,7 +258,7 @@ const ClassTimetablePage = () => {
             </CardContent>
           </Card>
 
-=======
+======= */}
           {/* Exam Schedule */}
           <div className="mt-8">
             <h2 className="text-xl font-bold mb-4 text-[#1E3A8A]">Exam Schedule</h2>
@@ -268,7 +268,7 @@ const ClassTimetablePage = () => {
               </CardContent>
             </Card>
           </div>
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
         </div>
       </div>
     </div>

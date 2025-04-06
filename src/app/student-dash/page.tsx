@@ -3,16 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-<<<<<<< HEAD
-// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LineChart } from "@/components/ui/line-chart";
-import Attendance from "../dash-comp/attendance";
-import Announcement from "../dash-comp/announcement";
+// <<<<<<< HEAD
+// // import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { LineChart } from "@/components/ui/line-chart";
+// import Attendance from "../dash-comp/attendance";
+// import Announcement from "../dash-comp/announcement";
 
-import Sidebar from "@/app/student-dash/components/Sidebar";
-import Image from "next/image";
+// import Sidebar from "@/app/student-dash/components/Sidebar";
+// import Image from "next/image";
  
-=======
+// =======
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bell, Menu, Info, BookOpen, ChevronDown } from "lucide-react";
@@ -23,7 +23,7 @@ import Attendance from "../dash-comp/attendance";
 import Announcement from "../dash-comp/announcement";
 import Marks from "../dash-comp/marks";
 import FocusMode from "../dash-comp/focusmode";
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+// >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
 
 const marksData = [
   { name: "FT1", score: 28, total: 35 },
@@ -57,41 +57,41 @@ export default function StudentDashboard() {
     }));
   };
 
-<<<<<<< HEAD
-  return (
-    <div className="flex h-screen bg-white">
-      {/* Sidebar */}
+// <<<<<<< HEAD
+//   return (
+//     <div className="flex h-screen bg-white">
+//       {/* Sidebar */}
  
-      <Sidebar />
+//       <Sidebar />
  
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        {/* Header */}
+//       {/* Main Content */}
+//       <div className="flex-1 overflow-auto">
+//         {/* Header */}
  
-        <header className="bg-[#1E3A8A] p-6 text-white relative">
-          <div className="absolute inset-0 z-0">
-            <Image 
-              src="/focus-bg.gif" 
-              alt="Background" 
-              fill 
-              style={{ objectFit: "cover", opacity: 0.7 }}
-              priority
-            />
-          </div>
-          <div className="absolute top-4 right-4 flex items-center gap-4 z-10">
-            <Bell className="h-6 w-6 cursor-pointer" />
-            <div className="h-10 w-10 rounded-full bg-gray-300 cursor-pointer overflow-hidden">
-              <Image src="/mock-night-city.jpg" alt="Profile" width={40} height={40} className="object-cover" />
-            </div>
-          </div>
-          <div className="relative z-10">
-            <h2 className="text-2xl font-bold">Aryan Patel, 11A2</h2>
-            <p className="text-lg">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
-          </div>
+//         <header className="bg-[#1E3A8A] p-6 text-white relative">
+//           <div className="absolute inset-0 z-0">
+//             <Image 
+//               src="/focus-bg.gif" 
+//               alt="Background" 
+//               fill 
+//               style={{ objectFit: "cover", opacity: 0.7 }}
+//               priority
+//             />
+//           </div>
+//           <div className="absolute top-4 right-4 flex items-center gap-4 z-10">
+//             <Bell className="h-6 w-6 cursor-pointer" />
+//             <div className="h-10 w-10 rounded-full bg-gray-300 cursor-pointer overflow-hidden">
+//               <Image src="/mock-night-city.jpg" alt="Profile" width={40} height={40} className="object-cover" />
+//             </div>
+//           </div>
+//           <div className="relative z-10">
+//             <h2 className="text-2xl font-bold">Aryan Patel, 11A2</h2>
+//             <p className="text-lg">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
+//           </div>
 
-        </header>
-=======
+//         </header>
+// =======
   // Mobile Dashboard Component
   const MobileDashboard = () => {
     return (
@@ -119,7 +119,7 @@ export default function StudentDashboard() {
          </div>
         </div>
         
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
 
         <main className="px-4 space-y-4 mt-4 ">
           {/* Annual Day Invitation */}
@@ -578,11 +578,11 @@ export default function StudentDashboard() {
                 <h3 className="text-2xl font-bold mb-2">Focus Mode</h3>
                 <p className="mb-6">Pomodoro Timer</p>
               </div>
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
             </CardContent>
           </Card>
 
-          {/* Focus Mode */}
+          Focus Mode
  
           <div className="bg-[#1A2234] rounded-lg overflow-hidden text-white relative">
             <div className="absolute inset-0 z-0">
@@ -600,9 +600,9 @@ export default function StudentDashboard() {
               <p className="mb-6">Pomodoro Timer</p>
             </div>
           </div>
-=======
+======= */}
             </div>
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
 
             {/* Upcoming Events */}
             <Card>
@@ -646,7 +646,7 @@ export default function StudentDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div>
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
                     <p>Integration notes for Chapter 8</p>
                     <p className="text-sm text-gray-500">Uploaded on 22 Nov&apos;24</p>
                   </div>
@@ -671,14 +671,14 @@ export default function StudentDashboard() {
               </div>
             </CardContent>
           </Card>
-=======
+======= */}
                     <p className="font-medium">Mathematics - Cluster Examinations</p>
                     <p>27 Nov'24 - 9:00 am - 11:30 am</p>
                   </div>
                 </CardContent>
               </Card>
             </div>
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
           </div>
         </div>
       </div>

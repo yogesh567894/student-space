@@ -194,7 +194,7 @@ const EducationDashboard = () => {
               <p className="font-medium whitespace-nowrap">Examination Fee</p>
               <p className="text-sm text-gray-500 whitespace-nowrap">Term {term}</p>
             </div>
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
             <div className="space-y-4">
               {[1, 2, 3].map((term) => (
                 <Card key={term} className="overflow-hidden">
@@ -216,11 +216,11 @@ const EducationDashboard = () => {
                   </div>
                 </Card>
               ))}
-=======
+======= */}
             <div className="text-right mr-4 flex-shrink-0">
               <p className="font-medium whitespace-nowrap">Rs. 3,800.00</p>
               <p className="text-sm text-gray-500 whitespace-nowrap">Due 18 Dec '24</p>
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
             </div>
           </div>
           <div className="flex items-center pr-2">
@@ -277,7 +277,7 @@ const EducationDashboard = () => {
 
           {/* Class Discipline */}
           <div>
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
             <h2 className="text-xl font-bold text-blue-800 mb-4">Class Discipline</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
@@ -316,7 +316,7 @@ const EducationDashboard = () => {
                 </CardContent>
               </Card>
             </div>
-=======
+======= */}
   <h2 className="text-xl font-bold text-[#1E3A8A] mb-4">Class Discipline</h2>
   <div className="flex overflow-x-auto pb-2 -mx-4 px-4 md:grid md:grid-cols-2 md:gap-4 md:overflow-x-visible">
     <Card className="border border-gray-200 rounded-lg flex-shrink-0 w-[85%] mr-3 md:w-auto md:mr-0">
@@ -332,7 +332,7 @@ const EducationDashboard = () => {
         <div className="flex items-center gap-2 mt-3">
           <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
             <User className="h-full w-full p-1" />
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
           </div>
           <span className="text-sm">Teacher Name</span>
         </div>
@@ -501,7 +501,7 @@ const EducationDashboard = () => {
                 <div className="h-5 w-5 rounded-full bg-slate-300 overflow-hidden">
                   <User className="h-full w-full p-0.5" />
                 </div>
-<<<<<<< HEAD
+{/* <<<<<<< HEAD
                 <div className="h-40 flex items-center justify-center">
                   <div className="w-full">
                     <div className="flex justify-between text-xs mb-1">
@@ -558,14 +558,14 @@ const EducationDashboard = () => {
                 </div>
               </CardContent>
             </Card>
-=======
+======= */}
                 <span className="text-xs">{note.teacher}</span>
               </div>
             </div>
             <Button variant="ghost" size="sm" className="text-[#1E3A8A]">
               View
             </Button>
->>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
+{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
           </div>
         ))}
       </div>
