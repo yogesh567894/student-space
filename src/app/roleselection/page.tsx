@@ -64,8 +64,8 @@ export default function RoleSelection() {
           <RoleCard 
             title="Admin"
             // imagePath="/admin.png" 
-            isSelected={selectedRole === "admin"}
-            onClick={() => handleRoleSelect("admin")}
+            isSelected={selectedRole === "ADMIN"}
+            onClick={() => handleRoleSelect("ADMIN")}
             description="Oversee school operations and user management"
           />
         </div>
