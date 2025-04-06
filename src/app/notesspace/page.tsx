@@ -174,7 +174,7 @@ const DigitalNotesSpace = () => {
                     ? "bg-[#1E3A8A] text-white"
                     : "bg-white text-gray-700 border"
                 }`}
-                onClick={() => setNotesFilter(filter as any)}
+                onClick={() => setNotesFilter(filter as "Subjects" | "Recently Added" | "Important" | "Last Seen")}
               >
                 {filter}
               </button>
@@ -244,7 +244,7 @@ const DigitalNotesSpace = () => {
                     ? "bg-[#1E3A8A] text-white"
                     : "bg-white text-gray-700 border"
                 }`}
-                onClick={() => setVideosFilter(filter as any)}
+                onClick={() => setVideosFilter(filter as "Subjects" | "Recently Added" | "Important" | "Last Seen")}
               >
                 {filter}
               </button>
@@ -307,7 +307,7 @@ const DigitalNotesSpace = () => {
                     ? "bg-[#1E3A8A] text-white"
                     : "bg-white text-gray-700 border"
                 }`}
-                onClick={() => setAssignmentsFilter(filter as any)}
+                onClick={() => setAssignmentsFilter(filter as "Subjects" | "Recently Added" | "Important" | "Last Seen")}
               >
                 {filter}
               </button>

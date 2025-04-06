@@ -97,15 +97,15 @@ const FeePaymentPage = () => {
   };
 
   // Filter payments based on active tab
-  const getFilteredPayments = () => {
-    const payments = [...recentPayments, ...upcomingPayments];
+  // const getFilteredPayments = () => {
+  //   const payments = [...recentPayments, ...upcomingPayments];
     
-    if (activeTab === "All") return payments;
-    if (activeTab === "Paid") return payments.filter(payment => payment.isPaid);
-    if (activeTab === "Pending") return payments.filter(payment => !payment.isPaid);
+  //   if (activeTab === "All") return payments;
+  //   if (activeTab === "Paid") return payments.filter(payment => payment.isPaid);
+  //   if (activeTab === "Pending") return payments.filter(payment => !payment.isPaid);
     
-    return payments;
-  };
+  //   return payments;
+  // };
 
   // const filteredPayments = getFilteredPayments();
   const filteredRecentPayments = recentPayments.filter(payment => {

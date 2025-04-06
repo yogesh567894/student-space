@@ -219,7 +219,7 @@ const EducationDashboard = () => {
 ======= */}
             <div className="text-right mr-4 flex-shrink-0">
               <p className="font-medium whitespace-nowrap">Rs. 3,800.00</p>
-              <p className="text-sm text-gray-500 whitespace-nowrap">Due 18 Dec '24</p>
+              <p className="text-sm text-gray-500 whitespace-nowrap">Due 18 Dec &apos;24</p>
 {/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
             </div>
           </div>
@@ -257,7 +257,7 @@ const EducationDashboard = () => {
               </div>
               <div className="mb-3">
                 <p className="font-medium">Rs. 3,800.00</p>
-                <p className="text-sm text-gray-500">Due 18 Dec '24</p>
+                <p className="text-sm text-gray-500">Due 18 Dec &apos;24</p>
               </div>
             </div>
             <div className="mt-2">
@@ -327,7 +327,7 @@ const EducationDashboard = () => {
         </p>
         <div className="text-sm text-gray-500">
           <p>Teacher : Divya S</p>
-          <p>Date : 28 Nov '24</p>
+          <p>Date : 28 Nov &apos;24</p>
         </div>
         <div className="flex items-center gap-2 mt-3">
           <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
@@ -345,7 +345,7 @@ const EducationDashboard = () => {
           Class projector not working efficiently.
         </p>
         <div className="text-sm text-gray-500">
-          <p>Date : 28 Nov '24</p>
+          <p>Date : 28 Nov &apos;24</p>
         </div>
         <div className="flex items-center gap-2 mt-3">
           <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
@@ -482,13 +482,13 @@ const EducationDashboard = () => {
           {
             title: "Math Notes",
             description: "Integration notes for Chapter 8",
-            date: "22 Nov '24",
+            date: "22 Nov &apos;24",
             teacher: "Teacher Name"
           },
           {
             title: "Economics Notes",
             description: "Market structures and competition",
-            date: "18 Nov '24",
+            date: "18 Nov &apos;24",
             teacher: "Teacher Name"
           }
         ].map((note, index) => (

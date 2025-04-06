@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { TooltipProps } from 'recharts';
 
 import { CheckCircle, XCircle, Clock, Bell, User } from "lucide-react";
 import Sidebar from "@/app/student-dash/components/Sidebar";
@@ -143,18 +144,31 @@ const AttendancePage: React.FC = () => {
     });
   };
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-3 shadow-md rounded-md border border-gray-100">
-          <p className="font-medium">{payload[0].payload.name}</p>
-          <p className="text-[#1E3A8A]">Present: {payload[0].value}%</p>
-          <p className="text-[#8da2fb]">Absent: {payload[1].value}%</p>
-        </div>
-      );
-    }
-    return null;
-  };
+  // const CustomTooltip = ({ active, payload }: any) => {
+  //   if (active && payload && payload.length) {
+  //     return (
+  //       <div className="bg-white p-3 shadow-md rounded-md border border-gray-100">
+  //         <p className="font-medium">{payload[0].payload.name}</p>
+  //         <p className="text-[#1E3A8A]">Present: {payload[0].value}%</p>
+  //         <p className="text-[#8da2fb]">Absent: {payload[1].value}%</p>
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // };
+const CustomTooltip = ({ active, payload, label }: TooltipProps<any, any>) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-3 shadow-md rounded-md border border-gray-100">
+        <p className="font-medium">{label}</p>
+        <p className="text-[#1E3A8A]">Present: {payload[0].value}%</p>
+        <p className="text-[#8da2fb]">Absent: {payload[1].value}%</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 
   const getStatusIcon = (status: string) => {
     switch(status) {

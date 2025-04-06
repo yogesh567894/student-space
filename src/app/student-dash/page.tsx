@@ -13,10 +13,10 @@ import { Button } from "@/components/ui/button";
 // import Image from "next/image";
  
 // =======
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Bell, Menu, Info, BookOpen, ChevronDown } from "lucide-react";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
+// import { Progress } from "@/components/ui/progress";
+// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Bell, Info, BookOpen} from "lucide-react";
+// import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import Image from "next/image";
 import Sidebar from "@/app/student-dash/components/Sidebar";
 import Attendance from "../dash-comp/attendance";
@@ -33,7 +33,7 @@ const marksData = [
 
 export default function StudentDashboard() {
   const [isMobile, setIsMobile] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState("Maths");
+  // const [selectedSubject, setSelectedSubject] = useState("Maths");
   const [paymentStatus, setPaymentStatus] = useState({
     schoolFee: true,
     commerceAPC: false,
@@ -128,7 +128,7 @@ export default function StudentDashboard() {
               <div className=" text-white p-4">
                 <div className="flex justify-between items-start">
                   <h2 className="text-base font-bold">42nd ANNUAL DAY INVITATION</h2>
-                  <span className="text-xs">14 Nov' 2024</span>
+                  <span className="text-xs">14 Nov&apos; 2024</span>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed">
                   Dear Parents, We cordially invite you to join us for our 42nd Annual Day Celebrations on Friday, 15th November 2024 in Kamarajar Arangam, Teynampet, Chennai at 3:00 PM. Regards Principal
@@ -155,7 +155,7 @@ export default function StudentDashboard() {
                   </div>
                   <div className="w-1/3">
                     <p className="text-sm font-medium">Rs. 36,800.00</p>
-                    <p className="text-xs text-gray-500">Due 18 Nov' 24</p>
+                    <p className="text-xs text-gray-500">Due 18 Nov&apos; 24</p>
                   </div>
                   <div className="w-1/3 flex items-center">
                     <input 
@@ -177,7 +177,7 @@ export default function StudentDashboard() {
                   </div>
                   <div className="w-1/3">
                     <p className="text-sm font-medium">Rs. 250.00</p>
-                    <p className="text-xs text-gray-500">Due 18 Nov' 24</p>
+                    <p className="text-xs text-gray-500">Due 18 Nov&apos; 24</p>
                   </div>
                   <div className="w-1/3 flex items-center">
                     <input 
@@ -199,7 +199,7 @@ export default function StudentDashboard() {
                   </div>
                   <div className="w-1/3">
                     <p className="text-sm font-medium">Rs. 250.00</p>
-                    <p className="text-xs text-gray-500">Due 18 Nov' 24</p>
+                    <p className="text-xs text-gray-500">Due 18 Nov&apos; 24</p>
                   </div>
                   <div className="w-1/3 flex items-center">
                     <input 
@@ -288,7 +288,7 @@ export default function StudentDashboard() {
               <div className="flex justify-between items-center mb-3">
                 <div>
                   <p className="text-sm font-medium">Integration notes for Chapter 8</p>
-                  <p className="text-xs text-gray-500">Uploaded on 22 Nov'24</p>
+                  <p className="text-xs text-gray-500">Uploaded on 22 Nov&apos;24</p>
                 </div>
                 <Info className="h-4 w-4 text-gray-400" />
               </div>
@@ -342,7 +342,7 @@ export default function StudentDashboard() {
             <CardContent className="p-4">
               <h2 className="font-bold mb-2">Upcoming Examinations</h2>
               <p className="text-sm font-medium">Mathematics - Cluster Examinations</p>
-              <p className="text-xs">27 Nov'24 • 9:00 am - 11:30 am</p>
+              <p className="text-xs">27 Nov&apos;24 • 9:00 am - 11:30 am</p>
             </CardContent>
           </Card>
         </main>
@@ -628,7 +628,7 @@ export default function StudentDashboard() {
                     <div className="flex justify-between items-center">
                       <div>
                         <p>Integration notes for Chapter 8</p>
-                        <p className="text-sm text-gray-500">Uploaded on 22 Nov'24</p>
+                        <p className="text-sm text-gray-500">Uploaded on 22 Nov&apos;24</p>
                       </div>
                       <Info className="h-5 w-5 text-gray-400" />
                     </div>
@@ -673,7 +673,7 @@ export default function StudentDashboard() {
           </Card>
 ======= */}
                     <p className="font-medium">Mathematics - Cluster Examinations</p>
-                    <p>27 Nov'24 - 9:00 am - 11:30 am</p>
+                    <p>27 Nov&apos;24 - 9:00 am - 11:30 am</p>
                   </div>
                 </CardContent>
               </Card>
