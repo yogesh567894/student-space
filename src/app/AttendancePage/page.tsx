@@ -34,12 +34,7 @@ const AttendancePage: React.FC = () => {
       });
     }
   }, [overviewTimeframe]);
-
-  type ChartData = {
-    name: string;
-    Present: number;
-    Absent: number;
-  };
+ 
   
   // Sample data - you would fetch this based on the selected timeframe
   const getChartData = () => {
@@ -162,7 +157,7 @@ const AttendancePage: React.FC = () => {
   //   return null;
   // };
 
-  const CustomTooltip: React.FC<TooltipProps<string, string>> = ({ active, payload, label }) => {
+  const CustomTooltip: React.FC<TooltipProps<string, string>> = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-3 shadow-md rounded-md border border-gray-100">
