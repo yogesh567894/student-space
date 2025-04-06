@@ -30,7 +30,7 @@ export default function Sidebar() {
           variant="ghost"
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-blue-800 text-white hover:bg-blue-700 hover:text-white"
+          className="bg-[#1E3A8A] text-white hover:bg-blue-700 hover:text-white"
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -39,7 +39,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed lg:fixed inset-y-0 left-0 z-40 w-64 bg-blue-800 text-white transform transition-transform duration-300 ease-in-out",
+          "fixed lg:fixed inset-y-0 left-0 z-40 w-64 bg-[#1E3A8A] text-white transform transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >

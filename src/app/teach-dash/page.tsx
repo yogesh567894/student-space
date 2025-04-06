@@ -56,7 +56,7 @@ const EducationDashboard = () => {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-6 max-w-5xl">
           {/* Upcoming Class/Meeting Card */}
-          <Card className="mb-6 bg-blue-800 text-white">
+          <Card className="mb-6 bg-[#1E3A8A] text-white">
             <CardContent className="pt-6 pb-4">
               {activeTab === "home" ? (
                 <>
@@ -85,14 +85,14 @@ const EducationDashboard = () => {
           <div className="grid grid-cols-2 gap-4 mb-6">
             <Button 
               variant={activeTab === "home" ? "default" : "outline"}
-              className={`${activeTab === "home" ? "bg-blue-800 text-white" : "bg-white text-blue-800"} border border-blue-800 hover:bg-blue-700 hover:text-white h-16`}
+              className={`${activeTab === "home" ? "bg-[#1E3A8A] text-white" : "bg-white text-[#1E3A8A]"} border border-[#1E3A8A] hover:bg-blue-700 hover:text-white h-16`}
               onClick={() => setActiveTab("home")}
             >
               Home Class
             </Button>
             <Button 
               variant={activeTab === "handling" ? "default" : "outline"}
-              className={`${activeTab === "handling" ? "bg-blue-800 text-white" : "bg-white text-blue-800"} border border-blue-800 hover:bg-blue-700 hover:text-white h-16`}
+              className={`${activeTab === "handling" ? "bg-[#1E3A8A] text-white" : "bg-white text-[#1E3A8A]"} border border-[#1E3A8A] hover:bg-blue-700 hover:text-white h-16`}
               onClick={() => setActiveTab("handling")}
             >
               Handling Class
@@ -104,8 +104,8 @@ const EducationDashboard = () => {
                   {/* Class Attendance */}
                   <div className="mb-6">
                   <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-bold text-blue-800">Class Attendance</h2>
-                      <Button variant="outline" className="bg-blue-800 text-white hover:bg-blue-700 hover:text-white text-sm px-4 py-1 h-auto">
+                      <h2 className="text-xl font-bold text-[#1E3A8A]">Class Attendance</h2>
+                      <Button variant="outline" className="bg-[#1E3A8A] text-white hover:bg-blue-700 hover:text-white text-sm px-4 py-1 h-auto">
                       Update Attendance
                       </Button>
                   </div>
@@ -134,17 +134,17 @@ const EducationDashboard = () => {
                           </div>
                           <div className="flex-1">
                           <div className="flex justify-between items-center mb-2">
-                              <h3 className="font-bold text-blue-800">November 2024</h3>
+                              <h3 className="font-bold text-[#1E3A8A]">November 2024</h3>
                               <div className="flex gap-1">
                               <button 
                                   onClick={() => setAttendanceView('yearly')}
-                                  className={`w-6 h-6 flex items-center justify-center border border-gray-300 ${attendanceView === 'yearly' ? 'bg-blue-800 text-white' : 'bg-white text-gray-800'} text-xs`}
+                                  className={`w-6 h-6 flex items-center justify-center border border-gray-300 ${attendanceView === 'yearly' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-800'} text-xs`}
                               >
                                   Y
                               </button>
                               <button 
                                   onClick={() => setAttendanceView('monthly')}
-                                  className={`w-6 h-6 flex items-center justify-center border border-gray-300 ${attendanceView === 'monthly' ? 'bg-blue-800 text-white' : 'bg-white text-gray-800'} text-xs`}
+                                  className={`w-6 h-6 flex items-center justify-center border border-gray-300 ${attendanceView === 'monthly' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-800'} text-xs`}
                               >
                                   M
                               </button>
@@ -179,8 +179,8 @@ const EducationDashboard = () => {
           {/* Student Fee Details - Hidden on screens smaller than 480px */}
 <div className="mb-6 hidden sm:block">
   <div className="flex justify-between items-center mb-4">
-    <h2 className="text-xl font-bold text-blue-800">Student Fee Details</h2>
-    <Button variant="link" className="text-blue-800 h-auto p-0 text-sm">
+    <h2 className="text-xl font-bold text-[#1E3A8A]">Student Fee Details</h2>
+    <Button variant="link" className="text-[#1E3A8A] h-auto p-0 text-sm">
       See All
     </Button>
   </div>
@@ -188,7 +188,7 @@ const EducationDashboard = () => {
     {[1, 2, 3].map((term) => (
       <Card key={term} className="overflow-hidden border border-gray-200">
         <div className="flex h-full">
-          <div className="w-1 bg-blue-800 flex-shrink-0 h-full"></div>
+          <div className="w-1 bg-[#1E3A8A] flex-shrink-0 h-full"></div>
           <div className="flex-1 p-4 flex justify-between items-center">
             <div className="flex-shrink-0">
               <p className="font-medium whitespace-nowrap">Examination Fee</p>
@@ -201,7 +201,7 @@ const EducationDashboard = () => {
           </div>
           <div className="flex items-center pr-2">
             <Button 
-              className="bg-blue-800 text-white hover:bg-blue-700 text-xs h-10 px-3 rounded whitespace-nowrap"
+              className="bg-[#1E3A8A] text-white hover:bg-blue-700 text-xs h-10 px-3 rounded whitespace-nowrap"
             >
               Check Student Status
             </Button>
@@ -215,8 +215,8 @@ const EducationDashboard = () => {
           {/* Student Fee Details - Mobile Only (<480px) */}
 <div className="mb-6 sm:hidden">
   <div className="flex justify-between items-center mb-4">
-    <h2 className="text-xl font-bold text-blue-800">Student Fee Details</h2>
-    <Button variant="link" className="text-blue-800 h-auto p-0 text-sm">
+    <h2 className="text-xl font-bold text-[#1E3A8A]">Student Fee Details</h2>
+    <Button variant="link" className="text-[#1E3A8A] h-auto p-0 text-sm">
       See All
     </Button>
   </div>
@@ -224,7 +224,7 @@ const EducationDashboard = () => {
     {[1, 2, 3].map((term) => (
       <Card key={term} className="overflow-hidden border border-gray-200">
         <div className="flex flex-col">
-          {/*<div className="w-full h-1 bg-blue-800"></div>*/}
+          {/*<div className="w-full h-1 bg-[#1E3A8A]"></div>*/}
           <div className="p-4 w-full">
             <div className="flex flex-col">
               <div className="mb-2">
@@ -238,7 +238,7 @@ const EducationDashboard = () => {
             </div>
             <div className="mt-2">
               <Button 
-                className="w-full bg-blue-800 text-white hover:bg-blue-700 text-xs h-9 px-3 rounded"
+                className="w-full bg-[#1E3A8A] text-white hover:bg-blue-700 text-xs h-9 px-3 rounded"
               >
                 Check Student Status
               </Button>
@@ -253,7 +253,7 @@ const EducationDashboard = () => {
 
           {/* Class Discipline */}
           <div>
-  <h2 className="text-xl font-bold text-blue-800 mb-4">Class Discipline</h2>
+  <h2 className="text-xl font-bold text-[#1E3A8A] mb-4">Class Discipline</h2>
   <div className="flex overflow-x-auto pb-2 -mx-4 px-4 md:grid md:grid-cols-2 md:gap-4 md:overflow-x-visible">
     <Card className="border border-gray-200 rounded-lg flex-shrink-0 w-[85%] mr-3 md:w-auto md:mr-0">
       <CardContent className="p-4">
@@ -297,7 +297,7 @@ const EducationDashboard = () => {
         <>
           {/* Time Table */}
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-blue-800 mb-4">Time Table</h2>
+            <h2 className="text-xl font-bold text-[#1E3A8A] mb-4">Time Table</h2>
             <div className="space-y-4">
               {[
                 { subject: "Mathematics", time: "7:30 - 8:10", room: "11 A2", type: "Theory Class" },
@@ -308,7 +308,7 @@ const EducationDashboard = () => {
                   <div className="p-4">
                     <div className="flex justify-between items-center">
                       <div>
-                        <h3 className="font-medium text-blue-800">{cls.subject}</h3>
+                        <h3 className="font-medium text-[#1E3A8A]">{cls.subject}</h3>
                         <p className="text-xs text-gray-500">{cls.type}</p>
                       </div>
                       <div className="text-right">
@@ -327,7 +327,7 @@ const EducationDashboard = () => {
   <Card className="overflow-hidden">
     <CardContent className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-semibold text-blue-800">Marks</h3>
+        <h3 className="text-lg font-semibold text-[#1E3A8A]">Marks</h3>
         <Select defaultValue="11A2-Economics">
           <SelectTrigger className="w-[180px] h-8 text-xs">
             <SelectValue placeholder="Select class" />
@@ -400,7 +400,7 @@ const EducationDashboard = () => {
   <Card className="overflow-hidden">
     <CardContent className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-semibold text-blue-800">Recent Notes</h3>
+        <h3 className="text-lg font-semibold text-[#1E3A8A]">Recent Notes</h3>
         <Select defaultValue="11A2">
           <SelectTrigger className="w-[100px] h-8 text-xs">
             <SelectValue placeholder="Select class" />
@@ -429,7 +429,7 @@ const EducationDashboard = () => {
         ].map((note, index) => (
           <div key={index} className="flex justify-between items-start">
             <div>
-              <h4 className="font-medium text-blue-800">{note.title}</h4>
+              <h4 className="font-medium text-[#1E3A8A]">{note.title}</h4>
               <p className="text-xs text-gray-500 mt-1">{note.description}</p>
               <p className="text-xs text-gray-500 mt-1">Updated on {note.date}</p>
               <div className="flex items-center gap-2 mt-2">
@@ -439,7 +439,7 @@ const EducationDashboard = () => {
                 <span className="text-xs">{note.teacher}</span>
               </div>
             </div>
-            <Button variant="ghost" size="sm" className="text-blue-800">
+            <Button variant="ghost" size="sm" className="text-[#1E3A8A]">
               View
             </Button>
           </div>
