@@ -156,7 +156,7 @@ const DigitalNotesSpace = () => {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Digital Notes Space</h1>
+        <h1 className="text-2xl font-bold mb-6 pl-12">Digital Notes Space</h1>
         
         {/* Notes Section */}
         <div className="mb-8">

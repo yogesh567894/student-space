@@ -207,7 +207,8 @@ const AttendancePage: React.FC = () => {
       <div className="flex-1 overflow-y-auto p-6">
         {/* Header with notification and profile */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Attendance</h1>
+          {/* Add padding to the page title */}
+          <h1 className="text-2xl font-bold lg:pl-0 pl-12">Attendance</h1>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5 text-gray-600" />

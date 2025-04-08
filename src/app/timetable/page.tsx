@@ -148,11 +148,12 @@ const ClassTimetablePage = () => {
         {/* Header */}
         {isMobile ? (
           <header className="bg-white p-4 flex items-center justify-between border-b">
-            <Menu className="h-6 w-6 text-gray-700" />
-            <h1 className="text-xl font-bold text-[#1E3A8A]">Class Timetable</h1>
+            {/* <Menu className="h-6 w-6 text-gray-700" /> */}
+            <Sidebar />
+            <h1 className="text-xl font-bold text-[#1E3A8A] pt-3 pl-12">Class Timetable</h1>
             <div className="flex items-center gap-3">
-              <Bell className="h-5 w-5 text-gray-500" />
-              <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
+              <Bell className="h-5 w-5 mt-2 text-gray-500" />
+              <div className="h-8 w-8 mt-2 rounded-full bg-gray-300 overflow-hidden">
                 <Image src="/mock-profile.jpg" alt="Profile" width={32} height={32} className="object-cover" />
               </div>
 {/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}

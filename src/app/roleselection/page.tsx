@@ -25,9 +25,9 @@ export default function RoleSelection() {
         case "teacher":
           router.push("/teach-dash");
           break;
-        case "admin":
-          router.push("/admin-dash");
-          break;
+        // case "admin":
+        //   router.push("/admin-dash");
+        //   break;
         default:
           router.push("/login");
       }
@@ -44,7 +44,7 @@ export default function RoleSelection() {
           <h2 className="text-xl font-semibold text-blue-800">Select user type</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <RoleCard 
             title="Student"
             // imagePath="/student.png" 
@@ -61,13 +61,13 @@ export default function RoleSelection() {
             description="Manage classes, assignments, and student evaluation"
           />
           
-          <RoleCard 
+          {/* <RoleCard 
             title="Admin"
             // imagePath="/admin.png" 
             isSelected={selectedRole === "admin"}
             onClick={() => handleRoleSelect("admin")}
             description="Oversee school operations and user management"
-          />
+          /> */}
         </div>
         
         <Button 

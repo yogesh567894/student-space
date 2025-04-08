@@ -145,7 +145,7 @@ const FeePaymentPage = () => {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-2">
         <div className="min-h-screen bg-gray-50">
           {/* Header for Desktop */}
           <header className="hidden md:flex items-center justify-between bg-white p-6 border-b">

@@ -107,7 +107,7 @@ const AcademicCalendarPage: React.FC = () => {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-3">
         <header className="md:hidden flex items-center justify-between bg-white p-4 border-b">
           <div className="w-6"></div>
           <h1 className="text-xl font-bold text-[#1E3A8A]">Academic Calendar</h1>
