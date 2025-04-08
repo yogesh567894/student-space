@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 // =======
 import { Button } from "@/components/ui/button";
-import { Menu, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 import Sidebar from "@/app/student-dash/components/Sidebar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Image from "next/image";
@@ -174,7 +174,7 @@ const ClassTimetablePage = () => {
         {/* Main Content */}
         <div className={isMobile ? "p-4" : "p-6"}>
           {/* Day Selector */}
-          <div className={`flex ${isMobile ? "overflow-x-auto pb-2" : "flex-wrap"} gap-2 mb-4`}>
+          <div className={`flex ${isMobile ? "overflow-x-auto pb-2" : "flex-wrap"} gap-0.5 mb-4`}>
             {days.map((day) => (
               <Button
                 key={day}
