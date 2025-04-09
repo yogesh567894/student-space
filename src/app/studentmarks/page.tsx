@@ -104,21 +104,33 @@ const StudentMarksPage: React.FC = () => {
 
         <Card>
           <CardContent className="p-4">
-            <div className='flex items-center justify-between mb-4'>
-              <h2 className="text-lg font-semibold mb-4">Subject-wise Analysis</h2>
-              <Tabs defaultValue="Math" className="mb-4">
-                <TabsList>
-                  {subjects.map((subject) => (
-                    <TabsTrigger
-                      key={subject}
-                      value={subject}
-                      onClick={() => setSelectedSubject(subject)}
+            <div className="flex flex-col sm:flex-row items-start gap-4 sm:items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-[#1E3A8A] flex-shrink-0">
+                Subject-wise Analysis
+              </h2>
+              <div className="w-full sm:w-auto">
+                <div className="overflow-x-auto -mx-4 sm:mx-0">
+                  <div className="px-4 sm:px-0 min-w-full inline-block align-middle">
+                    <Tabs 
+                      defaultValue="Math" 
+                      className="w-full"
+                      onValueChange={(value) => setSelectedSubject(value)}
                     >
-                      {subject}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </Tabs>
+                      <TabsList className="inline-flex h-10 items-center justify-start sm:justify-center w-full bg-muted p-1 text-muted-foreground">
+                        {subjects.map((subject) => (
+                          <TabsTrigger
+                            key={subject}
+                            value={subject}
+                            className="inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-[#1E3A8A] data-[state=active]:shadow-sm"
+                          >
+                            {subject}
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+                    </Tabs>
+                  </div>
+                </div>
+              </div>
             </div>
           
             <div className="h-64 mb-6">
