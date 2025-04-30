@@ -3,37 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-// <<<<<<< HEAD
-// // import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import { LineChart } from "@/components/ui/line-chart";
-// import Attendance from "../dash-comp/attendance";
-// import Announcement from "../dash-comp/announcement";
-
-// import Sidebar from "@/app/student-dash/components/Sidebar";
-// import Image from "next/image";
- 
-// =======
-// import { Progress } from "@/components/ui/progress";
-// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Bell, Info, BookOpen} from "lucide-react";
-// import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { Bell, Info, BookOpen, User } from "lucide-react";
 import Image from "next/image";
 import Sidebar from "@/app/student-dash/components/Sidebar";
 import Attendance from "../dash-comp/attendance";
 import Announcement from "../dash-comp/announcement";
 import Marks from "../dash-comp/marks";
 import FocusMode from "../dash-comp/focusmode";
-// >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6
-
-// const marksData = [
-//   { name: "FT1", score: 28, total: 35 },
-//   { name: "FT2", score: 28, total: 35 },
-//   { name: "FT3", score: 28, total: 35 },
-// ];
 
 export default function StudentDashboard() {
   const [isMobile, setIsMobile] = useState(false);
-  // const [selectedSubject, setSelectedSubject] = useState("Maths");
   const [paymentStatus, setPaymentStatus] = useState({
     schoolFee: true,
     commerceAPC: false,
@@ -57,41 +36,6 @@ export default function StudentDashboard() {
     }));
   };
 
-// <<<<<<< HEAD
-//   return (
-//     <div className="flex h-screen bg-white">
-//       {/* Sidebar */}
- 
-//       <Sidebar />
- 
-
-//       {/* Main Content */}
-//       <div className="flex-1 overflow-auto">
-//         {/* Header */}
- 
-//         <header className="bg-[#1E3A8A] p-6 text-white relative">
-//           <div className="absolute inset-0 z-0">
-//             <Image 
-//               src="/focus-bg.gif" 
-//               alt="Background" 
-//               fill 
-//               style={{ objectFit: "cover", opacity: 0.7 }}
-//               priority
-//             />
-//           </div>
-//           <div className="absolute top-4 right-4 flex items-center gap-4 z-10">
-//             <Bell className="h-6 w-6 cursor-pointer" />
-//             <div className="h-10 w-10 rounded-full bg-gray-300 cursor-pointer overflow-hidden">
-//               <Image src="/mock-night-city.jpg" alt="Profile" width={40} height={40} className="object-cover" />
-//             </div>
-//           </div>
-//           <div className="relative z-10">
-//             <h2 className="text-2xl font-bold">Aryan Patel, 11A2</h2>
-//             <p className="text-lg">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
-//           </div>
-
-//         </header>
-// =======
   // Mobile Dashboard Component
   const MobileDashboard = () => {
     return (
@@ -108,9 +52,10 @@ export default function StudentDashboard() {
         
          <div className="flex items-center gap-2">
            <Bell className="h-6 w-6" />
-           <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
+           {/* <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
              <Image src="/profile-placeholder.jpg" alt="Profile" width={32} height={32} />
-           </div>
+           </div> */}
+           <User className="h-5 w-5 text-gray-600" />
          </div>
        </header>
        <div className="text-white p-4 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-900 to-transparent">
@@ -119,8 +64,6 @@ export default function StudentDashboard() {
          </div>
         </div>
         
-{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
-
         <main className="px-4 space-y-4 mt-4 ">
           {/* Annual Day Invitation */}
           <Card className="rounded-xl overflow-hidden bg-blue-900">
@@ -370,13 +313,14 @@ export default function StudentDashboard() {
       <div className="relative z-10 p-6 flex justify-end">
         <div className="flex items-center gap-4">
           <Bell className="h-6 w-6" />
-          <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden">
+          {/* <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden">
             <Image src="/mock-night-city.jpg" alt="Profile" width={40} height={40} className="object-cover" />
-          </div>
+          </div> */}
+          <User className="h-7 w-6 text-white" />
         </div>
       </div>
       <div className="relative z-10 px-6 mt-18">
-        <h1 className="text-2xl font-bold">Aryan Patel, 11A2</h1>
+        <h1 className="text-2xl font-bold text-[#1E3A8A]">Aryan Patel, 11A2</h1>
         <p className="text-sm">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
       </div>
     </div>
@@ -578,31 +522,7 @@ export default function StudentDashboard() {
                 <h3 className="text-2xl font-bold mb-2">Focus Mode</h3>
                 <p className="mb-6">Pomodoro Timer</p>
               </div>
-{/* <<<<<<< HEAD
-            </CardContent>
-          </Card>
-
-          Focus Mode
- 
-          <div className="bg-[#1A2234] rounded-lg overflow-hidden text-white relative">
-            <div className="absolute inset-0 z-0">
-              <Image 
-                src="/focus-bg.gif" 
-                alt="Focus Background" 
-                fill 
-                style={{ objectFit: "cover", opacity: 0.7 }}
-                priority
-              />
             </div>
-            <div className="p-6 flex flex-col items-center justify-center h-full relative z-10">
- 
-              <h3 className="text-2xl font-bold mb-2">Focus Mode</h3>
-              <p className="mb-6">Pomodoro Timer</p>
-            </div>
-          </div>
-======= */}
-            </div>
-{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
 
             {/* Upcoming Events */}
             <Card>
@@ -646,39 +566,12 @@ export default function StudentDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div>
-{/* <<<<<<< HEAD
-                    <p>Integration notes for Chapter 8</p>
-                    <p className="text-sm text-gray-500">Uploaded on 22 Nov&apos;24</p>
-                  </div>
-                  <Info className="h-5 w-5 text-gray-400" />
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-gray-300"></div>
-                  <span>Teacher Name</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-[#1E3A8A] text-white">
-            <CardHeader>
-              <CardTitle>Upcoming Examinations</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div>
-                <p className="font-medium">Mathematics - Cluster Examinations</p>
-                <p>27 Nov&apos;24 - 9:00 am - 11:30 am</p>
-              </div>
-            </CardContent>
-          </Card>
-======= */}
                     <p className="font-medium">Mathematics - Cluster Examinations</p>
                     <p>27 Nov&apos;24 - 9:00 am - 11:30 am</p>
                   </div>
                 </CardContent>
               </Card>
             </div>
-{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
           </div>
         </div>
       </div>

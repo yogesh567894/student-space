@@ -13,13 +13,13 @@ export default function Sidebar() {
   
   const menuItems = [
     { name: "Dashboard", path: "/teach-dash" },
-    { name: "Schedule", path: "/teach-dash/schedule" },
-    { name: "Subjects", path: "/teach-dash/subjects" },
-    { name: "Students", path: "/teach-dash/students" },
+    { name: "Timetable", path: "/teach-dash/timetable" },
+    { name: "Students Details", path: "/teach-dash/students-details" },
+    { name: "Students Fee Details", path: "/teach-dash/students-fee-details" },
     { name: "Attendance", path: "/teach-dash/attendance" },
     { name: "Marks", path: "/teach-dash/marks" },
     { name: "Notes", path: "/teach-dash/notes" },
-    { name: "Settings", path: "/teach-dash/settings" },
+    { name: "Calender", path: "/teach-dash/calender" },
   ];
 
   return (

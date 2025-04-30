@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Bell, ChevronLeft, ChevronRight } from "lucide-react";
+import { Bell, ChevronLeft, ChevronRight, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
  
@@ -113,9 +113,8 @@ const AcademicCalendarPage: React.FC = () => {
           <h1 className="text-xl font-bold text-[#1E3A8A]">Academic Calendar</h1>
           <div className="flex items-center gap-3">
             <Bell className="h-5 w-5 text-[#1E3A8A]" />
-            <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
-              <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
-            </div>
+              {/*<img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />*/}
+            <User className="h-5 w-5 text-gray-600" />x
           </div>
         </header>
         
@@ -124,9 +123,8 @@ const AcademicCalendarPage: React.FC = () => {
           <h1 className="text-2xl font-bold text-[#1E3A8A]">Academic Calendar</h1>
           <div className="flex items-center gap-4">
             <Bell className="h-6 w-6 text-[#1E3A8A] cursor-pointer" />
-            <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden cursor-pointer">
-              <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
-            </div>
+              {/*<img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />*/}
+              <User className="h-5 w-5 text-gray-600" />
           </div>
         </header>
         

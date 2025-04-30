@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 // =======
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
+import { Bell, User } from "lucide-react";
 import Sidebar from "@/app/student-dash/components/Sidebar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Image from "next/image";
@@ -153,8 +153,9 @@ const ClassTimetablePage = () => {
             <h1 className="text-xl font-bold text-[#1E3A8A] pt-3 pl-12">Class Timetable</h1>
             <div className="flex items-center gap-3">
               <Bell className="h-5 w-5 mt-2 text-gray-500" />
-              <div className="h-8 w-8 mt-2 rounded-full bg-gray-300 overflow-hidden">
-                <Image src="/mock-profile.jpg" alt="Profile" width={32} height={32} className="object-cover" />
+              <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
+                {/*<Image src="/mock-profile.jpg" alt="Profile" width={32} height={32} className="object-cover" />*/}
+                <User className="h-5 w-5 text-gray-600" />
               </div>
 {/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
             </div>
@@ -164,9 +165,8 @@ const ClassTimetablePage = () => {
             <h1 className="text-2xl font-bold text-[#1E3A8A]">Class Timetable</h1>
             <div className="flex items-center gap-4">
               <Bell className="h-6 w-6 text-gray-500" />
-              <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden">
-                <Image src="/mock-profile.jpg" alt="Profile" width={40} height={40} className="object-cover" />
-              </div>
+                {/*<Image src="/mock-profile.jpg" alt="Profile" width={40} height={40} className="object-cover" />*/}
+                <User className="h-5 w-5 text-gray-600" />
             </div>
           </header>
         )}

@@ -17,7 +17,7 @@ import {
   Bell, 
   User
 } from "lucide-react";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "@/app/teach-dash/components/Sidebar";
 import { 
     ChartContainer, 
     ChartTooltip, 
@@ -44,10 +44,11 @@ const EducationDashboard = () => {
       {/* Main Content Wrapper */}
       <div className="lg:pl-64">
         {/* Header */}
-        <header className="bg-white p-4 flex justify-end items-center shadow-sm top-0 z-30">
+        <header className="p-4 flex items-center justify-between border-b">
+        <h1 className="text-2xl font-bold text-[#1E3A8A] pl-8">Teacher Dashboard</h1>
           <div className="flex items-center gap-4">
             <Bell className="h-6 w-6 text-slate-700" />
-            <div className="h-8 w-8 rounded-full bg-slate-300 overflow-hidden">
+            <div className="h-8 w-8 rounded-full overflow-hidden">
               <User className="h-full w-full p-1" />
             </div>
           </div>
