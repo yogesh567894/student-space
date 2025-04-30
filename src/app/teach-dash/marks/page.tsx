@@ -67,6 +67,11 @@ interface TopStudent {
   rank: number;
 }
 
+interface ChartDataPoint {
+  name: string;
+  [key: string]: string | number;
+}
+
 const subjects: Subject[] = ["Mathematics", "Physics", "Chemistry", "English", "Computer Science"];
 const classes: ClassName[] = ["11 A2", "11 A5", "12 A3", "12 A4"];
 
@@ -185,7 +190,7 @@ export default function MarksPage() {
   const [selectedSubject, setSelectedSubject] = useState<Subject>("Mathematics");
   const [activeTab, setActiveTab] = useState("class");
 
-  const prepareChartData = () => {
+  const prepareChartData = (): ChartDataPoint[] => {
     const class1Data = marksData[selectedClass1][selectedSubject].map((mark: number, index: number) => ({
       name: `S${index + 1}`,
       [selectedClass1]: mark,
@@ -464,43 +469,34 @@ export default function MarksPage() {
                     </TableHeader>
                     <TableBody>
                       {topStudents
-                        .sort((a: TopStudent, b: TopStudent) => b.marks[selectedSubject] - a.marks[selectedSubject])
-                        .slice(0, 10)
+                        .filter((student) => student.class === selectedClass1 || student.class === selectedClass2)
+                        .sort((a, b) => b.total - a.total)
+                        .slice(0, 5)
                         .map((student: TopStudent) => (
                           <TableRow key={student.id}>
                             <TableCell>
-                              <Badge
-                                variant={student.rank === 1 ? "default" : "secondary"}
-                                className={`${
-                                  student.rank === 1
-                                    ? "bg-yellow-100 text-yellow-800"
-                                    : "bg-gray-100 text-gray-800"
-                                }`}
-                              >
+                              <span className={`px-2 py-1 rounded-full text-xs ${
+                                student.rank === 1 
+                                  ? 'bg-yellow-100 text-yellow-800' 
+                                  : 'bg-gray-100 text-gray-800'
+                              }`}>
                                 #{student.rank}
-                              </Badge>
+                              </span>
                             </TableCell>
                             <TableCell>
-                              <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-2">
                                 <Avatar className="h-8 w-8">
-                                  <AvatarImage src={student.avatar} />
-                                  <AvatarFallback>
-                                    {student.name.charAt(0)}
-                                  </AvatarFallback>
+                                  <AvatarImage src={student.avatar} alt={student.name} />
+                                  <AvatarFallback>{student.name.charAt(0)}</AvatarFallback>
                                 </Avatar>
                                 <div>
                                   <p className="font-medium">{student.name}</p>
-                                  <p className="text-sm text-gray-600">{student.id}</p>
+                                  <p className="text-sm text-gray-500">{student.class}</p>
                                 </div>
                               </div>
                             </TableCell>
-                            <TableCell>{student.class}</TableCell>
-                            <TableCell className="text-right font-bold">
-                              {student.marks[selectedSubject]}
-                            </TableCell>
-                            <TableCell className="text-right">
-                              {student.total}/500
-                            </TableCell>
+                            <TableCell className="text-right">{student.marks[selectedSubject]}</TableCell>
+                            <TableCell className="text-right">{student.total}/500</TableCell>
                           </TableRow>
                         ))}
                     </TableBody>
