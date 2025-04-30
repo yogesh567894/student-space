@@ -10,18 +10,8 @@ const nextConfig = {
       net: false,
       tls: false,
     };
-
-    // Add resolve aliases
-    config.resolve.alias = {
-      ...config.resolve.alias,
-    };
-
-    // Optimize module resolution
-    config.resolve.modules = ["node_modules", ...config.resolve.modules];
-
     return config;
   },
-  transpilePackages: ["lucide-react", "vaul"],
 };
 
 module.exports = nextConfig;
