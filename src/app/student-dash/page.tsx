@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Bell, Info, BookOpen, User } from "lucide-react";
 import Image from "next/image";
 import Sidebar from "@/app/student-dash/components/Sidebar";
+import Side1 from "./components/Side1";
 import Attendance from "../dash-comp/attendance";
 import Announcement from "../dash-comp/announcement";
 import Marks from "../dash-comp/marks";
@@ -45,7 +46,7 @@ export default function StudentDashboard() {
         <header  className=" text-white p-4 flex items-center  justify-between">
          
          <div className="h-6 w-6">
-          <Sidebar />
+          <Side1 />
          </div>
          {/*<Image src="/focus-bg.gif" alt="Background" fill style={{ objectFit: "contain" }} priority />*/}
      
@@ -55,10 +56,10 @@ export default function StudentDashboard() {
            {/* <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
              <Image src="/profile-placeholder.jpg" alt="Profile" width={32} height={32} />
            </div> */}
-           <User className="h-5 w-5 text-gray-600" />
+           <User className="h-5 w-5 " />
          </div>
        </header>
-       <div className="text-white p-4 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-900 to-transparent">
+       <div className="text-white p-4 absolute bottom-0 left-0 right-0 ">
            <h1 className="text-lg font-bold">Aryan Patel, 11A2</h1>
            <p className="text-xs">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
          </div>
@@ -319,10 +320,10 @@ export default function StudentDashboard() {
           <User className="h-7 w-6 text-white" />
         </div>
       </div>
-      <div className="relative z-10 px-6 mt-18">
-        <h1 className="text-2xl font-bold text-[#1E3A8A]">Aryan Patel, 11A2</h1>
-        <p className="text-sm">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
-      </div>
+     <div className="text-white p-4 absolute bottom-0 left-0 right-0 ">
+           <h1 className="text-2xl font-bold pb-0">Aryan Patel, 11A2</h1>
+           <p className="text-lg">Maharishi Vidya Mandir Senior Secondary School, Chetpet</p>
+         </div>
     </div>
  
 </header>

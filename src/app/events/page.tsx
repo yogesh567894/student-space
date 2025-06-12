@@ -1,14 +1,31 @@
 "use client";
 
 import Sidebar from "../student-dash/components/Sidebar";
+import Side1 from "../student-dash/components/Side1";
 import { Calendar, Clock, MapPin, Bell, CheckCircle2, XCircle, Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 
 export default function EventsPage() {
+  // Add screen width state
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+
+  // Add useEffect for screen width
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const upcomingEvents = [
     {
       id: 1,
@@ -71,120 +88,113 @@ export default function EventsPage() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+    <div className="flex min-h-screen h-screen overflow-hidden bg-gray-50">
+      {/* Show full sidebar only on larger screens */}
+      {screenWidth > 769  && <Sidebar />}
       
       <div className="flex-1 overflow-y-auto">
         {/* Header */}
-        <div className="bg-white border-b px-6 py-4">
-          <div className="flex justify-between items-center">
-            <h1 className="pl-6 md:pl-0 text-2xl font-bold text-[#1E3A8A]">School Events</h1>
-            <div className="flex items-center gap-3">
-              <div className="relative hidden md:block">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  placeholder="Search events..."
-                  className="pl-10 w-[200px] lg:w-[300px] bg-gray-50 border-gray-200"
-                />
+        <div className="bg-white border-b px-3 py-3"> {/* Reduced padding */}
+          <div className="flex items-center justify-between">
+            {/* Hamburger menu */}
+            {screenWidth <= 769  && (
+              <div className="flex-none">
+                <Side1 />
               </div>
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5 text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-              </Button>
-              <Button variant="ghost" size="icon">
-              <User className="h-5 w-5 text-gray-600" />
+            )}
+
+            {/* Title with smaller font size */}
+            <div className="flex-1">
+              <h1 className={` font-bold text-[#1E3A8A] ${
+                screenWidth <= 769 ? 'text-center text-xl' :
+                screenWidth <= 1024 ? 'text-center p-8 text-2xl':''
+              }  `}>
+                School Events
+              </h1>
+            </div>
+
+            {/* Simplified header actions */}
+            <div className="flex-none">
+              <Button variant="ghost" size="sm" className="p-1">
+                <Search className="h-4 w-4 text-gray-600" />
               </Button>
             </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="p-6">
-          <div className="space-y-6">
+        <div className="p-3"> {/* Reduced padding */}
+          <div className="space-y-4">
             <Tabs defaultValue="upcoming">
-              <div className="flex justify-between items-center mb-4">
-                <TabsList className="bg-gray-100 border border-gray-200">
-                  <TabsTrigger 
-                    value="upcoming" 
-                    className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm"
-                  >
-                    Upcoming Events
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="past"
-                    className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm"
-                  >
-                    Past Events
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="calendar"
-                    className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm"
-                  >
-                    Calendar View
-                  </TabsTrigger>
-                </TabsList>
-                <div className="md:hidden">
-                  <Button variant="outline" size="sm" className="border-gray-300">
-                    <Search className="h-4 w-4 mr-2" />
-                    Search
-                  </Button>
-                </div>
-              </div>
-              
+              <TabsList className="bg-gray-100 border border-gray-200 w-full grid grid-cols-3 gap-0">
+                <TabsTrigger 
+                  value="upcoming" 
+                  className="text-sm px-2 py-1.5 data-[state=active]:bg-white data-[state=active]:text-blue-600"
+                >
+                  Upcoming
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="past"
+                  className="text-sm px-2 py-1.5 data-[state=active]:bg-white data-[state=active]:text-blue-600"
+                >
+                  Past
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="calendar"
+                  className="text-sm px-2 py-1.5 data-[state=active]:bg-white data-[state=active]:text-blue-600"
+                >
+                  Calendar
+                </TabsTrigger>
+              </TabsList>
+
               <TabsContent value="upcoming">
-                <div className="space-y-4">
+                <div className="space-y-3"> {/* Reduced gap */}
                   {upcomingEvents.map(event => (
-                    <Card key={event.id} className="border-gray-200 hover:shadow-md transition-shadow">
-                      <CardHeader>
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
-                          <div>
-                            <CardTitle className="text-gray-800">{event.title}</CardTitle>
-                            <CardDescription className="mt-2">
-                              <div className="flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-y-2 gap-x-6 text-sm">
-                                <span className="flex items-center text-gray-600">
-                                  <Calendar className="mr-2 h-4 w-4 text-blue-500" />
-                                  {event.date}
-                                </span>
-                                <span className="flex items-center text-gray-600">
-                                  <Clock className="mr-2 h-4 w-4 text-blue-500" />
-                                  {event.time}
-                                </span>
-                                <span className="flex items-center text-gray-600">
-                                  <MapPin className="mr-2 h-4 w-4 text-blue-500" />
-                                  {event.location}
-                                </span>
-                              </div>
-                            </CardDescription>
-                          </div>
+                    <Card key={event.id} className="border-gray-200">
+                      <CardHeader className="p-3"> {/* Reduced padding */}
+                        <div className="flex flex-col gap-2">
+                          <CardTitle className="text-base text-gray-800">{event.title}</CardTitle>
                           <Badge 
                             variant="outline" 
-                            className={`text-sm ${
-                              event.type === "Academic" ? "border-blue-200 bg-blue-50 text-blue-700" :
-                              event.type === "Cultural" ? "border-purple-200 bg-purple-50 text-purple-700" :
-                              "border-green-200 bg-green-50 text-green-700"
-                            }`}
+                            className="w-fit text-xs"
                           >
                             {event.type}
                           </Badge>
+                          <CardDescription className="mt-1">
+                            <div className="flex flex-col gap-1 text-xs">
+                              <span className="flex items-center text-gray-600">
+                                <Calendar className="mr-1.5 h-3.5 w-3.5 text-blue-500" />
+                                {event.date}
+                              </span>
+                              <span className="flex items-center text-gray-600">
+                                <Clock className="mr-1.5 h-3.5 w-3.5 text-blue-500" />
+                                {event.time}
+                              </span>
+                              <span className="flex items-center text-gray-600">
+                                <MapPin className="mr-1.5 h-3.5 w-3.5 text-blue-500" />
+                                {event.location}
+                              </span>
+                            </div>
+                          </CardDescription>
                         </div>
                       </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700">{event.description}</p>
+                      <CardContent className="px-3 py-2 text-sm">
+                        <p className="text-gray-700 line-clamp-2">{event.description}</p>
                       </CardContent>
-                      <CardFooter className="flex flex-col sm:flex-row justify-between gap-3 pt-0">
-                        {event.rsvp ? (
-                          <Badge className="w-fit bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
+                      <CardFooter className="flex flex-col gap-2 p-3">
+                        {event.rsvp && (
+                          <Badge className="w-full justify-center bg-yellow-100 text-yellow-800 text-xs">
                             RSVP Required
                           </Badge>
-                        ) : null}
-                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                          <Button variant="outline" className="border-gray-300 hover:bg-gray-50">
-                            <Bell className="mr-2 h-4 w-4 text-blue-600" />
-                            Remind Me
+                        )}
+                        <div className="flex gap-2 w-full">
+                          <Button variant="outline" size="sm" className="flex-1 text-xs">
+                            <Bell className="mr-1.5 h-3.5 w-3.5 text-blue-600" />
+                            Remind
                           </Button>
                           {event.rsvp && (
-                            <Button className="bg-blue-600 hover:bg-blue-700">
-                              Register Now
+                            <Button size="sm" className="flex-1 text-xs bg-blue-600">
+                              Register
                             </Button>
                           )}
                         </div>

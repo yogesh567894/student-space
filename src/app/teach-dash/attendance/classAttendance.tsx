@@ -113,14 +113,18 @@ export default function ClassAttendance() {
 
   return (
     <>
-      {/* Year/Month buttons above the No. of days cards */}
+      {/* Year/Month buttons with consistent styling */}
       <div className="flex gap-2 mb-4">
         {["year", "month"].map((p) => (
           <Button
             key={p}
             variant={period === p ? "default" : "outline"}
             size="sm"
-            className="text-sm"
+            className={`text-xs sm:text-sm px-3 ${
+              period === p
+                ? "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90"
+                : "text-[#1E3A8A] border-[#1E3A8A] hover:bg-[#1E3A8A]/10"
+            }`}
             onClick={() => setPeriod(p as any)}
           >
             {p.charAt(0).toUpperCase() + p.slice(1)}
@@ -128,27 +132,37 @@ export default function ClassAttendance() {
         ))}
       </div>
 
-      {/* No. of days cards */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        {[{ label: "No. of days working", value: summary.working },
-        { label: "No. of days holidays", value: summary.holidays },
-        { label: "No. of days half-day", value: summary.halfDay }]
-          .map(({ label, value }) => (
-            <Card key={label} className="flex-1 min-w-[160px] p-4 text-center">
-              <div className="text-xs text-muted-foreground">{label}</div>
-              <div className="text-2xl font-bold">{value}</div>
-            </Card>
-          ))}
+      {/* Summary Cards with consistent styling */}
+      <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
+        {[
+          { label: "No. of days working", value: summary.working },
+          { label: "No. of days holidays", value: summary.holidays },
+          { label: "No. of days half-day", value: summary.halfDay },
+        ].map(({ label, value }) => (
+          <Card
+            key={label}
+            className="flex-1 min-w-[140px] sm:min-w-[160px] p-3 sm:p-4 text-center bg-[#F8FAFC] border-[#E2E8F0]"
+          >
+            <div className="text-xs text-gray-600">{label}</div>
+            <div className="text-xl sm:text-2xl font-bold text-[#1E3A8A]">
+              {value}
+            </div>
+          </Card>
+        ))}
       </div>
 
-      {/* Year/Month/Week buttons below the No. of days cards */}
-      <div className="flex gap-2 mb-6">
+      {/* Period selector buttons with consistent styling */}
+      <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
         {["year", "month", "week"].map((p) => (
           <Button
             key={p}
             variant={period === p ? "default" : "outline"}
             size="sm"
-            className="text-sm"
+            className={`text-xs sm:text-sm px-3 ${
+              period === p
+                ? "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90"
+                : "text-[#1E3A8A] border-[#1E3A8A] hover:bg-[#1E3A8A]/10"
+            }`}
             onClick={() => setPeriod(p as any)}
           >
             {p.charAt(0).toUpperCase() + p.slice(1)}
@@ -156,29 +170,46 @@ export default function ClassAttendance() {
         ))}
       </div>
 
-      {/* Chart */}
-      <div className="h-[300px] w-full bg-[#f0f4ff] rounded-lg p-4">
+      {/* Chart with consistent styling */}
+      <div className="h-[300px] w-full bg-[#F8FAFC] rounded-lg p-4 border border-[#E2E8F0]">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={getChartData()} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
-            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: "#6b7280", fontSize: 12 }} />
-            <YAxis axisLine={false} tickLine={false} tick={{ fill: "#6b7280", fontSize: 12 }} />
+          <BarChart
+            data={getChartData()}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#E2E8F0"
+              vertical={false}
+            />
+            <XAxis
+              dataKey="name"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#64748B", fontSize: 12 }}
+            />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#64748B", fontSize: 12 }}
+            />
             <Tooltip content={<CustomTooltip />} />
             <Legend iconType="circle" wrapperStyle={{ paddingTop: 10 }} />
             <Bar dataKey="Present" fill="#1E3A8A" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="Absent" fill="#8da2fb" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="Absent" fill="#8DA2FB" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Space above Update Attendance */}
       <div className="mb-6" />
 
       {/* Update Attendance Section */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-semibold text-base">Update Attendance</h2>
+        <h2 className="font-semibold text-base text-[#1E3A8A]">
+          Update Attendance
+        </h2>
         <Select value={attendanceDate} onValueChange={setAttendanceDate}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] border-[#E2E8F0] focus:ring-[#1E3A8A]">
             <SelectValue placeholder="Select date" />
           </SelectTrigger>
           <SelectContent>
@@ -188,15 +219,15 @@ export default function ClassAttendance() {
         </Select>
       </div>
 
-      {/* Checkbox list for student attendance */}
-      <div className="border border-[#E0E3EB] rounded-lg p-4 max-h-[300px] overflow-auto mb-6">
-        <div className="grid grid-cols-2 gap-y-2">
+      {/* Student List */}
+      <div className="border border-[#E2E8F0] rounded-lg p-3 sm:p-4 max-h-[250px] sm:max-h-[300px] overflow-auto mb-4 sm:mb-6 bg-[#F8FAFC]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2">
           {studentIds.map((id, idx) => {
             const key = id + idx;
             return (
               <label
                 key={key}
-                className="flex items-center gap-2 text-[#1E3A8A] text-xs"
+                className="flex items-center gap-2 text-[#1E3A8A] text-xs hover:bg-[#F1F5F9] p-2 rounded-md transition-colors"
               >
                 <input
                   type="checkbox"
@@ -211,10 +242,18 @@ export default function ClassAttendance() {
         </div>
       </div>
 
-      {/* Action buttons */}
+      {/* Action Buttons */}
       <div className="flex justify-between">
-        <Button variant="outline" onClick={clearAll}>Clear All</Button>
-        <Button>Update Attendance</Button>
+        <Button
+          variant="outline"
+          onClick={clearAll}
+          className="border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A]/10"
+        >
+          Clear All
+        </Button>
+        <Button className="bg-[#1E3A8A] hover:bg-[#1E3A8A]/90">
+          Update Attendance
+        </Button>
       </div>
     </>
   );

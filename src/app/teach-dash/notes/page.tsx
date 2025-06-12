@@ -13,12 +13,14 @@ import {
   User,
   FilePlus,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "@/app/teach-dash/components/Sidebar";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Side1 from "@/app/teach-dash/components/Side1";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 type NoteItem = {
   id: string;
@@ -204,188 +206,570 @@ export default function NotesPage() {
     ));
   };
 
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+  const isSmallScreen = useMediaQuery("(min-width: 320px) and (max-width: 480px)");
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const [isSectionDropdownOpen, setIsSectionDropdownOpen] = useState(false);
+  const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isTypeDropdownOpen) setIsTypeDropdownOpen(false);
+      if (isSectionDropdownOpen) setIsSectionDropdownOpen(false);
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isTypeDropdownOpen, isSectionDropdownOpen]);
+
   return (
     <div className="flex min-h-screen bg-white">
-      <div className="w-64 bg-gray-100 border-r hidden md:block">
+      {/* Sidebar - Fixed width on large screens */}
+      <div className="hidden lg:block w-64 flex-shrink-0 fixed h-screen bg-[#1E3A8A] text-white">
         <Sidebar />
       </div>
 
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A]">Digital Notes Space</h1>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5 text-gray-600" />
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                  3
-                </span>
-              </Button>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5 text-gray-600" />
-              </Button>
+      {/* Main Content - Add left margin to match sidebar width on large screens */}
+      <div className="flex-1 lg:ml-64 min-h-screen">
+        {/* Header */}
+        <div className="sticky top-0 z-10 bg-white border-b">
+          <div className="flex justify-between items-center px-6 py-4">
+            {/* Left side with hamburger for mobile/tablet */}
+            <div className="lg:hidden">
+              <Side1 />
             </div>
-          </div>
 
-          {/* Upload Dialog */}
-          <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Upload New {uploadType.charAt(0).toUpperCase() + uploadType.slice(1)}</DialogTitle>
-                <DialogDescription>
-                  Fill in the details for your new {uploadType}.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="type" className="text-right">
-                    Type
-                  </Label>
-                  <Select 
-                    value={uploadType}
-                    onValueChange={(value: "note" | "video" | "assignment") => setUploadType(value)}
-                  >
-                    <SelectTrigger className="col-span-3">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="note">Note</SelectItem>
-                      <SelectItem value="video">Video</SelectItem>
-                      <SelectItem value="assignment">Assignment</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="title" className="text-right">
-                    Title
-                  </Label>
-                  <Input
-                    id="title"
-                    value={newItem.title}
-                    onChange={(e) => setNewItem({...newItem, title: e.target.value})}
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="description" className="text-right">
-                    Description
-                  </Label>
-                  <Input
-                    id="description"
-                    value={newItem.description}
-                    onChange={(e) => setNewItem({...newItem, description: e.target.value})}
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="section" className="text-right">
-                    Section
-                  </Label>
-                  <Select
-                    value={newItem.section}
-                    onValueChange={(value) => setNewItem({...newItem, section: value})}
-                  >
-                    <SelectTrigger className="col-span-3">
-                      <SelectValue placeholder="Select section" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {getSections()
-                        .filter(section => section !== "All Sections")
-                        .map((section) => (
-                          <SelectItem key={section} value={section}>{section}</SelectItem>
-                        ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="subject" className="text-right">
-                    Subject
-                  </Label>
-                  <Select
-                    value={newItem.subject}
-                    onValueChange={(value) => setNewItem({...newItem, subject: value})}
-                    disabled={!newItem.section}
-                  >
-                    <SelectTrigger className="col-span-3">
-                      <SelectValue placeholder="Select subject" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {newItem.section && subjectsBySection(newItem.section).map((subject) => (
-                        <SelectItem key={subject} value={subject}>{subject}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                {uploadType === "assignment" && (
+            {/* Title */}
+            <h1 className={`text-xl lg:text-2xl font-bold text-[#1E3A8A] ${screenWidth <= 768 ? 'text-lg' : ''}`}>
+              Digital Notes Space
+            </h1>
+
+            {/* Right side notifications */}
+            {screenWidth > 768 && (
+              <div className="flex items-center gap-4">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="h-5 w-5 text-gray-600" />
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                    3
+                  </span>
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5 text-gray-600" />
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div className={`p-6 ${isSmallScreen ? 'p-3' : ''}`}>
+          <div className="max-w-7xl mx-auto space-y-6">
+            {/* Upload Dialog */}
+            <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Upload New {uploadType.charAt(0).toUpperCase() + uploadType.slice(1)}</DialogTitle>
+                  <DialogDescription>
+                    Fill in the details for your new {uploadType}.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="dueDate" className="text-right">
-                      Due Date
+                    <Label htmlFor="type" className="text-right">
+                      Type
+                    </Label>
+                    <Select 
+                      value={uploadType}
+                      onValueChange={(value: "note" | "video" | "assignment") => setUploadType(value)}
+                    >
+                      <SelectTrigger className="col-span-3">
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="note">Note</SelectItem>
+                        <SelectItem value="video">Video</SelectItem>
+                        <SelectItem value="assignment">Assignment</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="title" className="text-right">
+                      Title
                     </Label>
                     <Input
-                      id="dueDate"
-                      type="date"
-                      value={newItem.dueDate}
-                      onChange={(e) => setNewItem({...newItem, dueDate: e.target.value})}
+                      id="title"
+                      value={newItem.title}
+                      onChange={(e) => setNewItem({...newItem, title: e.target.value})}
                       className="col-span-3"
                     />
                   </div>
-                )}
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="file" className="text-right">
-                    File
-                  </Label>
-                  <Input
-                    id="file"
-                    type="file"
-                    className="col-span-3"
-                  />
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="description" className="text-right">
+                      Description
+                    </Label>
+                    <Input
+                      id="description"
+                      value={newItem.description}
+                      onChange={(e) => setNewItem({...newItem, description: e.target.value})}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="section" className="text-right">
+                      Section
+                    </Label>
+                    <Select
+                      value={newItem.section}
+                      onValueChange={(value) => setNewItem({...newItem, section: value})}
+                    >
+                      <SelectTrigger className="col-span-3">
+                        <SelectValue placeholder="Select section" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {getSections()
+                          .filter(section => section !== "All Sections")
+                          .map((section) => (
+                            <SelectItem key={section} value={section}>{section}</SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="subject" className="text-right">
+                      Subject
+                    </Label>
+                    <Select
+                      value={newItem.subject}
+                      onValueChange={(value) => setNewItem({...newItem, subject: value})}
+                      disabled={!newItem.section}
+                    >
+                      <SelectTrigger className="col-span-3">
+                        <SelectValue placeholder="Select subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {newItem.section && subjectsBySection(newItem.section).map((subject) => (
+                          <SelectItem key={subject} value={subject}>{subject}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {uploadType === "assignment" && (
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="dueDate" className="text-right">
+                        Due Date
+                      </Label>
+                      <Input
+                        id="dueDate"
+                        type="date"
+                        value={newItem.dueDate}
+                        onChange={(e) => setNewItem({...newItem, dueDate: e.target.value})}
+                        className="col-span-3"
+                      />
+                    </div>
+                  )}
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="file" className="text-right">
+                      File
+                    </Label>
+                    <Input
+                      id="file"
+                      type="file"
+                      className="col-span-3"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsUploadDialogOpen(false)}>
-                  Cancel
-                </Button>
-                <Button onClick={handleUpload}>
-                  <UploadCloud className="w-4 h-4 mr-1" /> Upload
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
-
-          <Tabs defaultValue="notes" className="w-full">
-            <TabsList className="grid grid-cols-3 gap-2 mb-4">
-              <TabsTrigger value="notes">Notes</TabsTrigger>
-              <TabsTrigger value="videos">Lecture Videos</TabsTrigger>
-              <TabsTrigger value="assignments">Assignments</TabsTrigger>
-            </TabsList>
-
-            {/* Notes Tab */}
-            <TabsContent value="notes">
-              <div className="flex gap-2 flex-wrap mb-4">
-                {getSections().map((section) => (
-                  <Button
-                    key={section}
-                    variant={activeSectionNotes === section ? "default" : "outline"}
-                    className={activeSectionNotes === section ? "bg-[#1E3A8A] text-white" : ""}
-                    onClick={() => setActiveSectionNotes(section)}
-                  >
-                    {section}
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setIsUploadDialogOpen(false)}>
+                    Cancel
                   </Button>
-                ))}
+                  <Button onClick={handleUpload}>
+                    <UploadCloud className="w-4 h-4 mr-1" /> Upload
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/* Mobile View Controls (320px - 520px) */}
+            {screenWidth <= 520 ? (
+              <div className="space-y-4">
+                {/* Type Selector Dropdown */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    className="w-full flex justify-between items-center"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsTypeDropdownOpen(!isTypeDropdownOpen);
+                      setIsSectionDropdownOpen(false);
+                    }}
+                  >
+                    <span>{uploadType.charAt(0).toUpperCase() + uploadType.slice(1)}s</span>
+                    <svg
+                      className={`w-4 h-4 transition-transform duration-200 ${isTypeDropdownOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </Button>
+                  
+                  <div 
+                    className={`
+                      absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg
+                      transition-all duration-200 origin-top
+                      ${isTypeDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
+                    `}
+                  >
+                    {['note', 'video', 'assignment'].map((type) => (
+                      <button
+                        key={type}
+                        className={`w-full px-4 py-2 text-left transition-colors ${
+                          uploadType === type 
+                            ? 'bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]' 
+                            : 'hover:bg-gray-100'
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setUploadType(type as "note" | "video" | "assignment");
+                          setIsTypeDropdownOpen(false);
+                        }}
+                      >
+                        {type.charAt(0).toUpperCase() + type.slice(1)}s
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section Selector Dropdown */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    className="w-full flex justify-between items-center"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsSectionDropdownOpen(!isSectionDropdownOpen);
+                      setIsTypeDropdownOpen(false);
+                    }}
+                  >
+                    <span>{
+                      uploadType === 'note' ? activeSectionNotes :
+                      uploadType === 'video' ? activeSectionVideos :
+                      activeSectionAssignments
+                    }</span>
+                    <svg
+                      className={`w-4 h-4 transition-transform duration-200 ${isSectionDropdownOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </Button>
+                  
+                  <div 
+                    className={`
+                      absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg
+                      transition-all duration-200 origin-top
+                      ${isSectionDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
+                    `}
+                  >
+                    {getSections().map((section) => (
+                      <button
+                        key={section}
+                        className={`w-full px-4 py-2 text-left transition-colors ${
+                          (uploadType === 'note' && activeSectionNotes === section) ||
+                          (uploadType === 'video' && activeSectionVideos === section) ||
+                          (uploadType === 'assignment' && activeSectionAssignments === section)
+                            ? 'bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]' 
+                            : 'hover:bg-gray-100'
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (uploadType === 'note') setActiveSectionNotes(section);
+                          if (uploadType === 'video') setActiveSectionVideos(section);
+                          if (uploadType === 'assignment') setActiveSectionAssignments(section);
+                          setIsSectionDropdownOpen(false);
+                        }}
+                      >
+                        {section}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Upload Button */}
                 <Button 
                   variant="outline" 
-                  className="ml-auto"
-                  onClick={() => {
-                    setUploadType("note");
-                    setIsUploadDialogOpen(true);
-                  }}
+                  className="w-full"
+                  onClick={() => setIsUploadDialogOpen(true)}
                 >
-                  <FilePlus className="w-4 h-4 mr-1" /> New Note
+                  <FilePlus className="w-4 h-4 mr-1" /> New {uploadType.charAt(0).toUpperCase() + uploadType.slice(1)}
                 </Button>
               </div>
+            ) : (
+              // Desktop View (Tabs)
+              <Tabs defaultValue="notes" className="w-full">
+                <TabsList className="grid grid-cols-3 gap-2 mb-4">
+                  <TabsTrigger value="notes">Notes</TabsTrigger>
+                  <TabsTrigger value="videos">Lecture Videos</TabsTrigger>
+                  <TabsTrigger value="assignments">Assignments</TabsTrigger>
+                </TabsList>
 
-              {Object.entries(groupBySubject(filterNotes(activeSectionNotes, "note"))).map(
-                ([subject, subjectNotes]: any) => (
+                {/* Notes Tab */}
+                <TabsContent value="notes">
+                  <div className={`flex gap-2 ${screenWidth <= 768 ? 'overflow-x-auto pb-4' : 'flex-wrap'}`}>
+                    {getSections().map((section) => (
+                      <Button
+                        key={section}
+                        variant={activeSectionNotes === section ? "default" : "outline"}
+                        className={activeSectionNotes === section ? "bg-[#1E3A8A] text-white" : ""}
+                        onClick={() => setActiveSectionNotes(section)}
+                      >
+                        {section}
+                      </Button>
+                    ))}
+                    <Button 
+                      variant="outline" 
+                      className="ml-auto"
+                      onClick={() => {
+                        setUploadType("note");
+                        setIsUploadDialogOpen(true);
+                      }}
+                    >
+                      <FilePlus className="w-4 h-4 mr-1" /> New Note
+                    </Button>
+                  </div>
+
+                  {Object.entries(groupBySubject(filterNotes(activeSectionNotes, "note"))).map(
+                    ([subject, subjectNotes]: any) => (
+                      <div key={subject}>
+                        <div className="flex justify-between items-center mt-4">
+                          <h3 className="font-semibold text-xl">{subject}</h3>
+                          <div className="flex gap-2">
+                            <Button variant="ghost" className="text-[#1E3A8A]">See All</Button>
+                            <Button 
+                              size="sm" 
+                              className="bg-[#1E3A8A] text-white"
+                              onClick={() => {
+                                setUploadType("note");
+                                setIsUploadDialogOpen(true);
+                            }}
+                            >
+                              <UploadCloud className="w-4 h-4 mr-1" />Upload
+                            </Button>
+                          </div>
+                        </div>
+                        {subjectNotes.map((note: any) => (
+                          <Card
+                            key={note.id}
+                            className={`mt-2 ${note.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
+                          >
+                            <CardContent className={`${isSmallScreen ? 'p-3' : 'p-4'}`}>
+                              <div className="flex justify-between items-start">
+                                <div className="flex-1">
+                                  <p className={`font-semibold ${isSmallScreen ? 'text-sm' : ''}`}>{note.title}</p>
+                                  <p className={`${isSmallScreen ? 'text-xs' : 'text-sm'} ${note.isImportant ? "" : "text-muted-foreground"}`}>
+                                    {note.description}
+                                  </p>
+                                  <p className={`${isSmallScreen ? 'text-xs' : 'text-sm'} mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
+                                    Uploaded on {note.uploadDate}
+                                  </p>
+                                  <p className={`${isSmallScreen ? 'text-xs' : 'text-sm'} mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
+                                    👨‍🏫 {note.teacher}
+                                  </p>
+                                </div>
+                                <button 
+                                  onClick={() => toggleBookmark(note.id)}
+                                  className="ml-2"
+                                >
+                                  {note.isImportant ? (
+                                    <BookmarkCheck className={`${isSmallScreen ? 'w-4 h-4' : 'w-5 h-5'} text-white`} />
+                                  ) : (
+                                    <Bookmark className={`${isSmallScreen ? 'w-4 h-4' : 'w-5 h-5'} text-muted-foreground`} />
+                                  )}
+                                </button>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )
+                  )}
+                </TabsContent>
+
+                {/* Videos Tab */}
+                <TabsContent value="videos">
+                  <div className={`flex gap-2 ${screenWidth <= 768 ? 'overflow-x-auto pb-4' : 'flex-wrap'}`}>
+                    {getSections().map((section) => (
+                      <Button
+                        key={section}
+                        variant={activeSectionVideos === section ? "default" : "outline"}
+                        className={activeSectionVideos === section ? "bg-[#1E3A8A] text-white" : ""}
+                        onClick={() => setActiveSectionVideos(section)}
+                      >
+                        {section}
+                      </Button>
+                    ))}
+                    <Button 
+                      variant="outline" 
+                      className="ml-auto"
+                      onClick={() => {
+                        setUploadType("video");
+                        setIsUploadDialogOpen(true);
+                      }}
+                    >
+                      <FilePlus className="w-4 h-4 mr-1" /> New Video
+                    </Button>
+                  </div>
+
+                  {Object.entries(groupBySubject(filterNotes(activeSectionVideos, "video"))).map(
+                    ([subject, videos]: any) => (
+                      <div key={subject}>
+                        <div className="flex justify-between items-center mt-4">
+                          <h3 className="font-semibold text-xl">{subject}</h3>
+                          <div className="flex gap-2">
+                            <Button variant="ghost" className="text-[#1E3A8A]">See All</Button>
+                            <Button 
+                              size="sm" 
+                              className="bg-[#1E3A8A] text-white"
+                              onClick={() => {
+                                setUploadType("video");
+                                setIsUploadDialogOpen(true);
+                            }}
+                            >
+                              <UploadCloud className="w-4 h-4 mr-1" />Upload
+                            </Button>
+                          </div>
+                        </div>
+                        {videos.map((video: any) => (
+                          <Card
+                            key={video.id}
+                            className={`mt-2 ${video.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
+                          >
+                            <CardContent className="p-4">
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <p className="font-semibold">{video.title}</p>
+                                  <p className={`text-sm ${video.isImportant ? "" : "text-muted-foreground"}`}>
+                                    {video.description}
+                                  </p>
+                                  <p className={`text-xs mt-1 ${video.isImportant ? "" : "text-muted-foreground"}`}>
+                                    Uploaded on {video.uploadDate}
+                                  </p>
+                                  <p className={`text-xs mt-1 ${video.isImportant ? "" : "text-muted-foreground"}`}>
+                                    👨‍🏫 {video.teacher}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <PlayCircle className={`w-6 h-6 ${video.isImportant ? "text-white" : "text-[#1E3A8A]"}`} />
+                                  <button onClick={() => toggleBookmark(video.id)}>
+                                    {video.isImportant ? (
+                                      <BookmarkCheck className="w-5 h-5 text-white" />
+                                    ) : (
+                                      <Bookmark className="w-5 h-5 text-muted-foreground" />
+                                    )}
+                                  </button>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )
+                  )}
+                </TabsContent>
+
+                {/* Assignments Tab */}
+                <TabsContent value="assignments">
+                  <div className={`flex gap-2 ${screenWidth <= 768 ? 'overflow-x-auto pb-4' : 'flex-wrap'}`}>
+                    {getSections().map((section) => (
+                      <Button
+                        key={section}
+                        variant={activeSectionAssignments === section ? "default" : "outline"}
+                        className={activeSectionAssignments === section ? "bg-[#1E3A8A] text-white" : ""}
+                        onClick={() => setActiveSectionAssignments(section)}
+                      >
+                        {section}
+                      </Button>
+                    ))}
+                    <Button 
+                      variant="outline" 
+                      className="ml-auto"
+                      onClick={() => {
+                        setUploadType("assignment");
+                        setIsUploadDialogOpen(true);
+                      }}
+                    >
+                      <FilePlus className="w-4 h-4 mr-1" /> New Assignment
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    {filterNotes(activeSectionAssignments, "assignment").map((assignment) => {
+                      const statusColor =
+                        assignment.status === "overdue"
+                          ? "bg-red-500"
+                          : assignment.status === "completed"
+                          ? "bg-green-500"
+                          : "bg-blue-500";
+
+                      return (
+                        <Card
+                          key={assignment.id}
+                          className={`mt-2 ${assignment.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
+                        >
+                          <CardContent className="p-4">
+                            <div className="flex justify-between items-start">
+                              <div className="flex-1">
+                                <div className="flex justify-between">
+                                  <p className="font-semibold">{assignment.title}</p>
+                                  <button onClick={() => toggleBookmark(assignment.id)}>
+                                    {assignment.isImportant ? (
+                                      <BookmarkCheck className="w-5 h-5 text-white" />
+                                    ) : (
+                                      <Bookmark className="w-5 h-5 text-muted-foreground" />
+                                    )}
+                                  </button>
+                                </div>
+                                <p className={`text-sm ${assignment.isImportant ? "" : "text-muted-foreground"}`}>
+                                  {assignment.description}
+                                </p>
+                                <div className={`flex items-center text-xs gap-1 mt-2 ${assignment.isImportant ? "" : "text-muted-foreground"}`}>
+                                  <div className={`w-2 h-2 rounded-full ${assignment.isImportant ? "bg-white" : statusColor}`}></div>
+                                  <CalendarDays className="w-4 h-4" />
+                                  Due Date: {assignment.dueDate}
+                                </div>
+                                <p className={`text-xs mt-1 ${assignment.isImportant ? "" : "text-muted-foreground"}`}>
+                                  👨‍🏫 {assignment.teacher}
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            )}
+
+            {/* Content Display Based on Selected Type */}
+            {screenWidth <= 520 && (
+              <div className="mt-4">
+                {Object.entries(groupBySubject(filterNotes(
+                  uploadType === 'note' ? activeSectionNotes :
+                  uploadType === 'video' ? activeSectionVideos :
+                  activeSectionAssignments,
+                  uploadType
+                ))).map(([subject, items]: any) => (
                   <div key={subject}>
                     <div className="flex justify-between items-center mt-4">
                       <h3 className="font-semibold text-xl">{subject}</h3>
@@ -394,39 +778,51 @@ export default function NotesPage() {
                         <Button 
                           size="sm" 
                           className="bg-[#1E3A8A] text-white"
-                          onClick={() => {
-                            setUploadType("note");
-                            setIsUploadDialogOpen(true);
-                          }}
+                          onClick={() => setIsUploadDialogOpen(true)}
                         >
                           <UploadCloud className="w-4 h-4 mr-1" />Upload
                         </Button>
                       </div>
                     </div>
-                    {subjectNotes.map((note: any) => (
+
+                    {items.map((item: NoteItem) => (
                       <Card
-                        key={note.id}
-                        className={`mt-2 ${note.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
+                        key={item.id}
+                        className={`mt-2 ${item.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
                       >
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-center">
-                            <div>
-                              <p className="font-semibold">{note.title}</p>
-                              <p className={`text-sm ${note.isImportant ? "" : "text-muted-foreground"}`}>
-                                {note.description}
+                        <CardContent className="p-3">
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <p className="text-sm font-semibold">{item.title}</p>
+                              <p className={`text-xs ${item.isImportant ? "" : "text-muted-foreground"}`}>
+                                {item.description}
                               </p>
-                              <p className={`text-xs mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
-                                Uploaded on {note.uploadDate}
+                              <p className={`text-xs mt-1 ${item.isImportant ? "" : "text-muted-foreground"}`}>
+                                Uploaded on {item.uploadDate}
                               </p>
-                              <p className={`text-xs mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
-                                👨‍🏫 {note.teacher}
+                              {item.type === 'assignment' && (
+                                <div className={`flex items-center text-xs gap-1 mt-1 ${item.isImportant ? "" : "text-muted-foreground"}`}>
+                                  <div className={`w-2 h-2 rounded-full ${
+                                    item.status === "overdue" ? "bg-red-500" :
+                                    item.status === "completed" ? "bg-green-500" :
+                                    "bg-blue-500"
+                                  }`}></div>
+                                  <CalendarDays className="w-4 h-4" />
+                                  Due Date: {item.dueDate}
+                                </div>
+                              )}
+                              <p className={`text-xs mt-1 ${item.isImportant ? "" : "text-muted-foreground"}`}>
+                                👨‍🏫 {item.teacher}
                               </p>
                             </div>
-                            <button onClick={() => toggleBookmark(note.id)}>
-                              {note.isImportant ? (
-                                <BookmarkCheck className="w-5 h-5 text-white" />
+                            <button 
+                              onClick={() => toggleBookmark(item.id)}
+                              className="ml-2"
+                            >
+                              {item.isImportant ? (
+                                <BookmarkCheck className="w-4 h-4 text-white" />
                               ) : (
-                                <Bookmark className="w-5 h-5 text-muted-foreground" />
+                                <Bookmark className="w-4 h-4 text-muted-foreground" />
                               )}
                             </button>
                           </div>
@@ -434,164 +830,10 @@ export default function NotesPage() {
                       </Card>
                     ))}
                   </div>
-                )
-              )}
-            </TabsContent>
-
-            {/* Videos Tab */}
-            <TabsContent value="videos">
-              <div className="flex gap-2 flex-wrap mb-4">
-                {getSections().map((section) => (
-                  <Button
-                    key={section}
-                    variant={activeSectionVideos === section ? "default" : "outline"}
-                    className={activeSectionVideos === section ? "bg-[#1E3A8A] text-white" : ""}
-                    onClick={() => setActiveSectionVideos(section)}
-                  >
-                    {section}
-                  </Button>
                 ))}
-                <Button 
-                  variant="outline" 
-                  className="ml-auto"
-                  onClick={() => {
-                    setUploadType("video");
-                    setIsUploadDialogOpen(true);
-                  }}
-                >
-                  <FilePlus className="w-4 h-4 mr-1" /> New Video
-                </Button>
               </div>
-
-              {Object.entries(groupBySubject(filterNotes(activeSectionVideos, "video"))).map(
-                ([subject, videos]: any) => (
-                  <div key={subject}>
-                    <div className="flex justify-between items-center mt-4">
-                      <h3 className="font-semibold text-xl">{subject}</h3>
-                      <div className="flex gap-2">
-                        <Button variant="ghost" className="text-[#1E3A8A]">See All</Button>
-                        <Button 
-                          size="sm" 
-                          className="bg-[#1E3A8A] text-white"
-                          onClick={() => {
-                            setUploadType("video");
-                            setIsUploadDialogOpen(true);
-                          }}
-                        >
-                          <UploadCloud className="w-4 h-4 mr-1" />Upload
-                        </Button>
-                      </div>
-                    </div>
-                    {videos.map((video: any) => (
-                      <Card
-                        key={video.id}
-                        className={`mt-2 ${video.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
-                      >
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-center">
-                            <div>
-                              <p className="font-semibold">{video.title}</p>
-                              <p className={`text-sm ${video.isImportant ? "" : "text-muted-foreground"}`}>
-                                {video.description}
-                              </p>
-                              <p className={`text-xs mt-1 ${video.isImportant ? "" : "text-muted-foreground"}`}>
-                                Uploaded on {video.uploadDate}
-                              </p>
-                              <p className={`text-xs mt-1 ${video.isImportant ? "" : "text-muted-foreground"}`}>
-                                👨‍🏫 {video.teacher}
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <PlayCircle className={`w-6 h-6 ${video.isImportant ? "text-white" : "text-[#1E3A8A]"}`} />
-                              <button onClick={() => toggleBookmark(video.id)}>
-                                {video.isImportant ? (
-                                  <BookmarkCheck className="w-5 h-5 text-white" />
-                                ) : (
-                                  <Bookmark className="w-5 h-5 text-muted-foreground" />
-                                )}
-                              </button>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )
-              )}
-            </TabsContent>
-
-            {/* Assignments Tab */}
-            <TabsContent value="assignments">
-              <div className="flex gap-2 flex-wrap mb-4">
-                {getSections().map((section) => (
-                  <Button
-                    key={section}
-                    variant={activeSectionAssignments === section ? "default" : "outline"}
-                    className={activeSectionAssignments === section ? "bg-[#1E3A8A] text-white" : ""}
-                    onClick={() => setActiveSectionAssignments(section)}
-                  >
-                    {section}
-                  </Button>
-                ))}
-                <Button 
-                  variant="outline" 
-                  className="ml-auto"
-                  onClick={() => {
-                    setUploadType("assignment");
-                    setIsUploadDialogOpen(true);
-                  }}
-                >
-                  <FilePlus className="w-4 h-4 mr-1" /> New Assignment
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                {filterNotes(activeSectionAssignments, "assignment").map((assignment) => {
-                  const statusColor =
-                    assignment.status === "overdue"
-                      ? "bg-red-500"
-                      : assignment.status === "completed"
-                      ? "bg-green-500"
-                      : "bg-blue-500";
-
-                  return (
-                    <Card
-                      key={assignment.id}
-                      className={`mt-2 ${assignment.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-start">
-                          <div className="flex-1">
-                            <div className="flex justify-between">
-                              <p className="font-semibold">{assignment.title}</p>
-                              <button onClick={() => toggleBookmark(assignment.id)}>
-                                {assignment.isImportant ? (
-                                  <BookmarkCheck className="w-5 h-5 text-white" />
-                                ) : (
-                                  <Bookmark className="w-5 h-5 text-muted-foreground" />
-                                )}
-                              </button>
-                            </div>
-                            <p className={`text-sm ${assignment.isImportant ? "" : "text-muted-foreground"}`}>
-                              {assignment.description}
-                            </p>
-                            <div className={`flex items-center text-xs gap-1 mt-2 ${assignment.isImportant ? "" : "text-muted-foreground"}`}>
-                              <div className={`w-2 h-2 rounded-full ${assignment.isImportant ? "bg-white" : statusColor}`}></div>
-                              <CalendarDays className="w-4 h-4" />
-                              Due Date: {assignment.dueDate}
-                            </div>
-                            <p className={`text-xs mt-1 ${assignment.isImportant ? "" : "text-muted-foreground"}`}>
-                              👨‍🏫 {assignment.teacher}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </TabsContent>
-          </Tabs>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Bell, Download, User } from "lucide-react";
+import { Bell, Download } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
- 
 import Sidebar from "@/app/student-dash/components/Sidebar";
- 
+import Side1 from "@/app/student-dash/components/Side1";
 
 interface PaymentItem {
   id: string;
@@ -20,6 +19,21 @@ interface PaymentItem {
 const FeePaymentPage = () => {
   const [activeTab, setActiveTab] = useState<"All" | "Paid" | "Pending">("All");
   const [, setAllPayments] = useState<PaymentItem[]>([]);
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+  
+  // Add screen width detection
+  useEffect(() => {
+    // Set initial width
+    setScreenWidth(window.innerWidth);
+
+    // Add resize listener
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const [recentPayments, setRecentPayments] = useState<PaymentItem[]>([
     {
@@ -80,7 +94,10 @@ const FeePaymentPage = () => {
     setAllPayments([...recentPayments, ...upcomingPayments]);
   }, [recentPayments, upcomingPayments]);
 
-  const handlePaymentStatusChange = (id: string, isRecent: boolean = true) => {
+  const handlePaymentStatusChange = (id: string, isRecent: boolean = true, e?: React.MouseEvent) => {
+    // Prevent default behavior to avoid page scrolling
+    if (e) e.preventDefault();
+    
     if (isRecent) {
       setRecentPayments(
         recentPayments.map((payment) =>
@@ -139,46 +156,18 @@ const FeePaymentPage = () => {
   };
 
   return (
-    
     <div className="flex h-screen bg-white">
-      {/* Sidebar */}
-      <Sidebar />
+      {/* Sidebar - only show on desktop */}
+      {screenWidth > 768 ? <Sidebar /> : null}
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-2">
         <div className="min-h-screen bg-gray-50">
           {/* Header for Desktop */}
-          <header className="hidden md:flex items-center justify-between bg-white p-6 border-b">
-            <h1 className="text-2xl font-bold text-[#1E3A8A]">Fee Payment Details</h1>
-            <div className="flex items-center gap-4">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="bg-[#1E3A8A] text-white rounded-md"
-              >
-                <Download className="h-4 w-4 mr-1" /> Download Report
-              </Button>
-              <Bell className="h-6 w-6 text-gray-500 cursor-pointer" />
-              <User className="h-5 w-5 text-gray-600" />
-            </div>
-          </header>
-
-          {/* Header for Mobile */}
-          <header className="md:hidden flex items-center justify-between bg-white p-4 border-b">
-            <div className="w-6"></div>
-            <h1 className="text-xl font-bold text-[#1E3A8A]">Fee Payment Details</h1>
-            <div className="flex items-center gap-3">
-              <Bell className="h-5 w-5 text-gray-500 cursor-pointer" />
-              <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
-                <User className="h-5 w-5 text-gray-600" />
-              </div>
-            </div>
-          </header>
-
-          <div className="max-w-7xl mx-auto p-4 md:p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Recent Payments</h2>
-              <div className="md:hidden">
+          {screenWidth > 768 ? (
+            <header className="flex items-center justify-between bg-white p-6 border-b">
+              <h1 className="text-2xl font-bold text-[#1E3A8A]">Fee Payment Details</h1>
+              <div className="flex items-center gap-4">
                 <Button 
                   variant="outline" 
                   size="sm"
@@ -186,7 +175,45 @@ const FeePaymentPage = () => {
                 >
                   <Download className="h-4 w-4 mr-1" /> Download Report
                 </Button>
+                <Bell className="h-6 w-6 text-gray-500 cursor-pointer" />
+                <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden">
+                  <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+                </div>
               </div>
+            </header>
+          ) : (
+            /* Header for Mobile */
+            <header className="flex items-center justify-between bg-white p-4 border-b">
+              {/* Left side with hamburger menu */}
+              <Side1 />
+              
+              {/* Centered title */}
+              <h1 className="text-xl font-bold text-[#1E3A8A] mx-auto">Fee Payment Details</h1>
+              
+              {/* Right side icons */}
+              <div className="flex items-center gap-3">
+                <Bell className="h-5 w-5 text-gray-500 cursor-pointer" />
+                <div className="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
+                  <img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </header>
+          )}
+
+          <div className="max-w-7xl mx-auto p-4 md:p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Recent Payments</h2>
+              {screenWidth <= 768 && (
+                <div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="bg-[#1E3A8A] text-white rounded-md"
+                  >
+                    <Download className="h-4 w-4 mr-1" /> {screenWidth > 480 ? 'Download Report' : 'Download'}
+                  </Button>
+                </div>
+              )}
             </div>
 
             <div className="flex space-x-2 mb-4">

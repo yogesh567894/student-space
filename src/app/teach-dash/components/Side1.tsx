@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import Link from "next/link";
@@ -9,37 +7,39 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export default function Sidebar() {
+export default function Side1() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { name: "Dashboard", path: "/student-dash" },
-    { name: "Attendance", path: "/AttendancePage" },
-    { name: "Events", path: "/events" },
-    { name: "Marks", path: "/studentmarks" },
-    { name: "Timetable", path: "/timetable" },
-    { name: "Exam Schedule", path: "/exam-schedule" },
-    { name: "Fee Payment", path: "/feepayment" },
-    { name: "Digital Notes Space", path: "/notesspace" },
-    { name: "Enquiry", path: "/enquiry" },
-    { name: "Academic Calendar", path: "/calendar" },
-    { name: "Subjects and Syllabus", path: "/subjects-syllabus" },
+    { name: "Dashboard", path: "/teach-dash" },
+    { name: "Timetable", path: "/teach-dash/timetable" },
+    { name: "Home Class", path: "/teach-dash/students-details" },
+    { name: "Handling Class", path: "/teach-dash/handling-class" },
+    { name: "Attendance", path: "/teach-dash/attendance" },
+    { name: "Notes", path: "/teach-dash/notes" },
+    { name: "Calender", path: "/teach-dash/calender" },
+    {
+      name: "Enter Marks",
+      path: "/teach-dash/enter-marks",
+      special: true,
+    },
   ];
 
   return (
     <>
       {/* Mobile Menu Button */}
-      <div className={cn("lg:hidden fixed top-10 left-10 z-50", isOpen ? "hidden" : "block")}>
+      <div
+        className={cn(
+          "lg:hidden fixed top-4 left-4 z-50",
+          isOpen ? "hidden" : "block"
+        )}
+      >
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className={cn(
-            // Apply blue background only on the Dashboard page
-            pathname === "/student-dash" ? "bg-[#1E3A8A] text-white" : "bg-transparent text-blue-800",
-            "hover:bg-blue-800 hover:text-white"
-          )}
+          className="bg-[#1E3A8A] text-white hover:bg-blue-700 hover:text-white"
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -48,19 +48,19 @@ export default function Sidebar() {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed lg:static inset-y-0 left-0 z-40 w-64 bg-[#1E3A8A] text-white transform transition-transform duration-300 ease-in-out",
+          "fixed lg:fixed inset-y-0 left-0 z-40 w-64 bg-[#1E3A8A] text-white transform transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="p-4 lg:p-6 h-full flex flex-col">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-xl lg:text-2xl font-bold">Dashboard</h1>
+            <h1 className="text-xl lg:text-2xl font-bold">Teacher Portal</h1>
             {isOpen && (
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsOpen(false)}
-                className="lg:hidden text-white hover:bg-blue-800 hover:text-white"
+                className="lg:hidden text-white hover:bg-blue-700 hover:text-white"
               >
                 <X className="h-5 w-5" />
               </Button>
@@ -72,12 +72,15 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.path}
                 onClick={() => setIsOpen(false)}
-                className={`block py-1.5 px-3 hover:bg-blue-800 rounded cursor-pointer text-sm lg:text-base ${
-                  pathname === item.path ? "bg-[#1E3A8A]" : ""
-                }`}
+                className={cn(
+                  "block py-1.5 px-3 rounded cursor-pointer text-sm lg:text-base",
+                  pathname === item.path ? "bg-blue-700" : "hover:bg-blue-700",
+                  item.special &&
+                    "bg-white/10 border border-white/20 hover:bg-blue-700 hover:border-white/40"
+                )}
                 prefetch={true}
               >
-                {item.name}
+                <div className="flex items-center">{item.name}</div>
               </Link>
             ))}
           </nav>

@@ -7,6 +7,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 import { CheckCircle, XCircle, Clock, Bell, User } from "lucide-react";
 import Sidebar from "@/app/student-dash/components/Sidebar";
+import Side1 from "../student-dash/components/Side1";
 
 
 const AttendancePage: React.FC = () => {
@@ -17,6 +18,8 @@ const AttendancePage: React.FC = () => {
     holidays: 8,
     halfDay: 0
   });
+
+  const [screenWidth, setScreenWidth] = useState<number>(0);
 
   // Update attendance data when timeframe changes
   useEffect(() => {
@@ -34,7 +37,20 @@ const AttendancePage: React.FC = () => {
       });
     }
   }, [overviewTimeframe]);
- 
+
+  useEffect(() => {
+    // Set initial width
+    setScreenWidth(window.innerWidth);
+
+    // Add resize listener
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
   
   // Sample data - you would fetch this based on the selected timeframe
   const getChartData = () => {
@@ -200,17 +216,38 @@ const AttendancePage: React.FC = () => {
   return (
     
     <div className="flex min-h-screen h-screen overflow-hidden bg-white">
-      {/* Sidebar */}
-      <Sidebar />
-
+      {/* Responsive Sidebar */}
+      {screenWidth > 768 && <Sidebar />}
+      
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto p-6">
         {/* Header with notification and profile */}
-        <div className="flex justify-between items-center mb-6">
-          {/* Add padding to the page title */}
-          <h1 className="text-2xl font-bold lg:pl-0 pl-12 text-[#1E3A8A]">Attendance</h1>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative">
+        <div className={`flex items-center justify-between mb-6 relative`}>
+          {/* Left side with hamburger for mobile/tablet */}
+          <div className="flex items-center">
+            {screenWidth <= 768 && (
+              <div>
+                <Side1 />
+              </div>
+            )}
+          </div>
+
+          {/* Title - no longer fixed */}
+          <div>
+            {screenWidth <= 768 && (
+              <h1 className="text-2xl font-bold text-[#1E3A8A]">Attendance</h1>)}
+            { screenWidth > 768 && (
+              <h1 className="text-2xl p-4 font-bold text-[#1E3A8A]">Attendance</h1>)}
+          </div>
+          
+
+          
+            <div >
+            
+            
+            {screenWidth > 768 && (
+            <div className="flex items-center gap-4 pt-4 pb-4 " >
+              <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5 text-gray-600" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 3
@@ -219,7 +256,22 @@ const AttendancePage: React.FC = () => {
             <Button variant="ghost" size="icon">
               <User className="h-5 w-5 text-gray-600" />
             </Button>
+            </div>
+            )}
+          
+
+          {screenWidth <= 768 && (
+            
+            
+          <div className="flex items-center gap-4 " >
+           
+          
           </div>
+          )}
+          </div>
+
+          {/* Right side notifications */}
+          
         </div>
         
         {/* Attendance Overview */}

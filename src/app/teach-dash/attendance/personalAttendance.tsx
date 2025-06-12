@@ -109,13 +109,19 @@ export default function PersonalAttendance() {
     <div className="space-y-6">
       {/* Range Selector */}
       <div className="flex gap-2 mb-4">
-        {["year", "month"].map((p) => (
+        {["year", "month", "week"].map((p) => (
           <Button
             key={p}
             variant={range.toLowerCase() === p ? "default" : "outline"}
             size="sm"
-            className="text-sm"
-            onClick={() => setRange(p === "year" ? "Year" : "Month")}
+            className={`text-xs sm:text-sm px-3 ${
+              range.toLowerCase() === p
+                ? "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90"
+                : "text-[#1E3A8A] border-[#1E3A8A] hover:bg-[#1E3A8A]/10"
+            }`}
+            onClick={() =>
+              setRange(p === "year" ? "Year" : p === "month" ? "Month" : "Week")
+            }
           >
             {p.charAt(0).toUpperCase() + p.slice(1)}
           </Button>
@@ -123,71 +129,85 @@ export default function PersonalAttendance() {
       </div>
 
       {/* Summary Cards */}
-      <div className="flex gap-4 flex-wrap">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {[
           { label: "No. of days working", value: summary.working },
           { label: "No. of days holidays", value: summary.holidays },
           { label: "No. of days half-day", value: summary.halfDay },
         ].map(({ label, value }) => (
-          <Card key={label} className="flex-1 min-w-[160px] p-4 text-center">
-            <div className="text-xs text-muted-foreground">{label}</div>
-            <div className="text-2xl font-bold">{value}</div>
+          <Card key={label} className="p-3 sm:p-4 text-center bg-[#F8FAFC] border-[#E2E8F0]">
+            <div className="text-xs text-gray-600">{label}</div>
+            <div className="text-xl sm:text-2xl font-bold text-[#1E3A8A]">{value}</div>
           </Card>
         ))}
       </div>
 
       {/* Chart Section */}
       <div>
-        <div className="flex gap-2 mb-3">
-          {["Year", "Month", "Week"].map((option) => (
-            <Button
-              key={option}
-              variant={range === option ? "default" : "outline"}
-              size="sm"
-              className="text-sm"
-              onClick={() => setRange(option as "Year" | "Month" | "Week")}
-            >
-              {option}
-            </Button>
-          ))}
-        </div>
-        <div className="h-[300px] w-full bg-[#f0f4ff] rounded-lg p-4">
+        <div className="h-[300px] w-full bg-[#F8FAFC] rounded-lg p-4 border border-[#E2E8F0]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={getChartData()}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#64748B", fontSize: 12 }}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#64748B", fontSize: 12 }}
+              />
               <Tooltip />
-              <Legend />
+              <Legend iconType="circle" />
               <Bar dataKey="Present" fill="#1E3A8A" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Absent" fill="#8da2fb" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Absent" fill="#8DA2FB" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Leave Request Section */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex justify-between items-center">
-          <h2 className="text-base font-semibold">Leave Request</h2>
-          <LeaveRequestDialog />
+          <h2 className="text-base font-semibold text-[#1E3A8A]">Leave Request</h2>
+          <Button
+            size="sm"
+            className="bg-[#1E3A8A] hover:bg-[#1E3A8A]/90 text-xs sm:text-sm"
+          >
+            Apply New
+          </Button>
         </div>
         <div className="space-y-2">
           {leaveRequests.map((req, i) => (
-            <Card key={i} className={`p-3 ${req.color}`}>
+            <Card
+              key={i}
+              className={`p-3 ${req.color} bg-[#F8FAFC] hover:bg-[#F1F5F9] transition-colors`}
+            >
               <div className="flex justify-between items-center">
                 <div>
-                  <div className="text-sm font-medium">{req.type}</div>
-                  <div className="text-xs text-muted-foreground">{req.reason}</div>
+                  <div className="text-sm font-medium text-[#1E3A8A]">{req.type}</div>
+                  <div className="text-xs text-gray-600">{req.reason}</div>
                 </div>
-                <div className="text-xs text-muted-foreground text-right">
+                <div className="text-xs text-gray-600 text-right">
                   <div>
                     {req.from} - {req.to}
                   </div>
                   <div>{req.days} Days</div>
                 </div>
               </div>
-              <div className="mt-1 text-sm font-medium">{req.status}</div>
+              <div
+                className={`mt-1 text-sm font-medium ${
+                  req.status === "Accepted"
+                    ? "text-green-600"
+                    : req.status === "Rejected"
+                    ? "text-red-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {req.status}
+              </div>
             </Card>
           ))}
         </div>

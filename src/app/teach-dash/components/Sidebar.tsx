@@ -14,12 +14,16 @@ export default function Sidebar() {
   const menuItems = [
     { name: "Dashboard", path: "/teach-dash" },
     { name: "Timetable", path: "/teach-dash/timetable" },
-    { name: "Students Details", path: "/teach-dash/students-details" },
-    { name: "Students Fee Details", path: "/teach-dash/students-fee-details" },
+    { name: "Home Class", path: "/teach-dash/students-details" },
+    { name: "Handling Class", path: "/teach-dash/handling-class" },
     { name: "Attendance", path: "/teach-dash/attendance" },
-    { name: "Marks", path: "/teach-dash/marks" },
     { name: "Notes", path: "/teach-dash/notes" },
     { name: "Calender", path: "/teach-dash/calender" },
+    { 
+      name: "Enter Marks", 
+      path: "/teach-dash/enter-marks",
+      special: true // Add this flag for special styling
+    },
   ];
 
   return (
@@ -63,12 +67,16 @@ export default function Sidebar() {
                 key={item.name} 
                 href={item.path}
                 onClick={() => setIsOpen(false)}
-                className={`block py-1.5 px-3 hover:bg-blue-700 rounded cursor-pointer text-sm lg:text-base ${
-                  pathname === item.path ? "bg-blue-700" : ""
-                }`}
+                className={cn(
+                  "block py-1.5 px-3 rounded cursor-pointer text-sm lg:text-base",
+                  pathname === item.path ? "bg-blue-700" : "hover:bg-blue-700",
+                  item.special && "bg-white/10 border border-white/20 hover:bg-blue-700 hover:border-white/40"
+                )}
                 prefetch={true}
               >
-                {item.name}
+                <div className="flex items-center">
+                  {item.name}
+                </div>
               </Link>
             ))}
           </nav>
@@ -84,4 +92,4 @@ export default function Sidebar() {
       )}
     </>
   );
-} 
+}

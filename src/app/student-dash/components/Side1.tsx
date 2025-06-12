@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import Link from "next/link";
@@ -7,10 +9,10 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export default function Sidebar1() {
+export default function Side1() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const menuItems = [
     { name: "Dashboard", path: "/student-dash" },
     { name: "Attendance", path: "/AttendancePage" },
@@ -33,7 +35,11 @@ export default function Sidebar1() {
           variant="ghost"
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className=" text-white  "
+          className={cn(
+            // Apply blue background only on the Dashboard page
+            pathname === "/student-dash" ? "bg-[#1E3A8A] text-white" : "bg-transparent text-blue-800",
+            "hover:bg-blue-800 hover:text-white"
+          )}
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -42,7 +48,7 @@ export default function Sidebar1() {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed lg:static inset-y-0 left-0 z-40 w-64  text-white transform transition-transform duration-300 ease-in-out",
+          "fixed lg:static inset-y-0 left-0 z-40 w-64 bg-[#1E3A8A] text-white transform transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
@@ -62,12 +68,12 @@ export default function Sidebar1() {
           </div>
           <nav className="space-y-1 flex-1 overflow-y-auto">
             {menuItems.map((item) => (
-              <Link 
-                key={item.name} 
+              <Link
+                key={item.name}
                 href={item.path}
                 onClick={() => setIsOpen(false)}
-                className={`block py-1.5 px-3  rounded cursor-pointer text-sm lg:text-base ${
-                  pathname === item.path ? "" : ""
+                className={`block py-1.5 px-3 hover:bg-blue-800 rounded cursor-pointer text-sm lg:text-base ${
+                  pathname === item.path ? "bg-[#1E3A8A]" : ""
                 }`}
                 prefetch={true}
               >
@@ -87,4 +93,4 @@ export default function Sidebar1() {
       )}
     </>
   );
-} 
+}

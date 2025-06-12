@@ -20,19 +20,22 @@ export default function LeaveRequestDialog() {
         <Button size="sm">Apply New</Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-md rounded-xl px-6 py-4 shadow-xl">
-        <div className="flex items-center justify-between">
-          <DialogTitle className="text-lg font-bold text-blue-900">Leave Request</DialogTitle>
-          <DialogClose asChild>
-            <Button variant="ghost" className="rounded-full p-1">
-              <X className="w-5 h-5" />
-            </Button>
-          </DialogClose>
-        </div>
+      <DialogContent className="max-w-md rounded-lg border-[#E2E8F0]">
+        <DialogHeader>
+          <DialogTitle className="text-lg font-bold text-[#1E3A8A]">
+            Leave Request
+          </DialogTitle>
+        </DialogHeader>
 
-        <div className="space-y-4 mt-2">
-          <Input placeholder="Subject" />
-          <Input placeholder="Reason" />
+        <div className="space-y-4">
+          <Input 
+            placeholder="Subject" 
+            className="border-[#E2E8F0] focus:border-[#1E3A8A]" 
+          />
+          <Input 
+            placeholder="Reason" 
+            className="border-[#E2E8F0] focus:border-[#1E3A8A]" 
+          />
 
           <div className="flex flex-col gap-4">
             <Popover>
@@ -59,9 +62,16 @@ export default function LeaveRequestDialog() {
               </PopoverContent>
             </Popover>
           </div>
-
-          <Button className="w-fit self-end px-6">Apply New</Button>
         </div>
+
+        <DialogFooter>
+          <Button 
+            type="submit" 
+            className="bg-[#1E3A8A] hover:bg-[#1E3A8A]/90"
+          >
+            Apply
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+// Add screenWidth state and import Side1
+import React, { useState, useEffect } from "react";
 import { Bell, ChevronLeft, ChevronRight, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
- 
 import Sidebar from "@/app/student-dash/components/Sidebar";
- 
+import Side1 from "@/app/student-dash/components/Side1";
 
 interface CalendarEvent {
   date: string;
@@ -15,6 +15,21 @@ interface CalendarEvent {
 }
 
 const AcademicCalendarPage: React.FC = () => {
+  // Add screen width state
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+
+  // Add useEffect for screen width
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const months = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -101,33 +116,51 @@ const AcademicCalendarPage: React.FC = () => {
   const currentEvents = eventsData[currentMonth] || [];
   
   return (
-
     <div className="flex h-screen bg-white">
-      {/* Sidebar */}
-      <Sidebar />
+      {/* Conditional Sidebar */}
+      
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-3">
-        <header className="md:hidden flex items-center justify-between bg-white p-4 border-b">
-          <div className="w-6"></div>
-          <h1 className="text-xl font-bold text-[#1E3A8A]">Academic Calendar</h1>
-          <div className="flex items-center gap-3">
-            <Bell className="h-5 w-5 text-[#1E3A8A]" />
-              {/*<img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />*/}
-            <User className="h-5 w-5 text-gray-600" />x
-          </div>
-        </header>
+      <div className="flex-1 overflow-y-auto p-6">
+        {/* Mobile Header */}
+        {screenWidth <= 768 && (
+          <header className="flex items-center justify-between bg-white p-2border-b">
+            <div className="flex items-center w-10">
+              <Side1 />
+            </div>
+            <h1 className="text-2xl font-bold text-[#1E3A8A] flex-1 text-center">
+              Academic Calendar
+            </h1>
+            <div className="flex items-center gap-4 w-10">
+           
+            </div>
+          </header>
+        )}
         
         {/* Desktop Header */}
-        <header className="hidden md:flex items-center justify-between bg-white p-6 border-b">
-          <h1 className="text-2xl font-bold text-[#1E3A8A]">Academic Calendar</h1>
-          <div className="flex items-center gap-4">
-            <Bell className="h-6 w-6 text-[#1E3A8A] cursor-pointer" />
-              {/*<img src="/mock-profile.jpg" alt="Profile" className="w-full h-full object-cover" />*/}
-              <User className="h-5 w-5 text-gray-600" />
+        {screenWidth > 768 && (
+          <div>
+            <Sidebar />
+            <header className="flex items-center justify-between bg-white p-6 border-b">
+              <div className="w-1/4"></div>
+              <h1 className="text-2xl font-bold text-[#1E3A8A] flex-1 text-center">
+                Academic Calendar
+              </h1>
+              <div className="flex items-center gap-4 w-1/4 justify-end">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="h-5 w-5 text-gray-600" />
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                    3
+                  </span>
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5 text-gray-600" />
+                </Button>
+              </div>
+            </header>
           </div>
-        </header>
-        
+        )}
+
         <div className="max-w-4xl mx-auto p-4 md:p-6">
           {/* Month Navigation */}
           <div className="flex justify-center items-center mb-6">
@@ -154,8 +187,8 @@ const AcademicCalendarPage: React.FC = () => {
           
           {/* Desktop Calendar View */}
           <div className="hidden md:block mb-6">
-            <Card>
-              <CardContent className="p-6">
+            <Card className="bg-white shadow-sm">
+              <CardContent className="p-4 md:p-6">
                 <div className="grid grid-cols-7 gap-2 mb-4">
                   {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                     <div key={day} className="text-center font-medium text-[#1E3A8A]">
@@ -199,7 +232,7 @@ const AcademicCalendarPage: React.FC = () => {
           </div>
           
           {/* List View (Mobile and Desktop) */}
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4 md:mt-6">
             {currentEvents.map((event, index) => (
               <div 
                 key={index} 

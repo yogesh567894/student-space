@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Card, 
   CardContent
@@ -15,10 +15,14 @@ import {
 } from "@/components/ui/select";
 import { 
   Bell, 
-  User
+  User,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import Sidebar from "@/app/teach-dash/components/Sidebar";
-import { 
+import Side1 from "@/app/teach-dash/components/Side1";
+import
+{ 
     ChartContainer, 
     ChartTooltip, 
     ChartTooltipContent 
@@ -35,65 +39,148 @@ import {
 const EducationDashboard = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [attendanceView, setAttendanceView] = useState('monthly');
+  const [currentDisciplineIndex, setCurrentDisciplineIndex] = useState(0);
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+
+  const disciplineItems = [
+    {
+      title: "Complaints",
+      description: "Couple of students caught for misbehaviour in the Economics class.",
+      teacher: "Divya S",
+      date: "28 Nov '24"
+    },
+    {
+      title: "Maintenance Issues",
+      description: "Class projector not working efficiently.",
+      date: "28 Nov '24"
+    }
+  ];
+
+  const handleNext = () => {
+    setCurrentDisciplineIndex((prev) => 
+      prev === disciplineItems.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentDisciplineIndex((prev) => 
+      prev === 0 ? disciplineItems.length - 1 : prev - 1
+    );
+  };
+
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Sidebar */}
+    <div className="flex min-h-screen bg-white">
+    {/* Sidebar - Fixed width on large screens */}
+    <div className="hidden lg:block w-64 flex-shrink-0 fixed h-screen bg-[#1E3A8A] text-white">
       <Sidebar />
+    </div>
 
-      {/* Main Content Wrapper */}
-      <div className="lg:pl-64">
-        {/* Header */}
-        <header className="p-4 flex items-center justify-between border-b">
-        <h1 className="text-2xl font-bold text-[#1E3A8A] pl-8">Teacher Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <Bell className="h-6 w-6 text-slate-700" />
-            <div className="h-8 w-8 rounded-full overflow-hidden">
-              <User className="h-full w-full p-1" />
-            </div>
+    {/* Main Content - Add left margin to match sidebar width on large screens */}
+    <div className="flex-1 lg:ml-64 min-h-screen">
+      {/* Header */}
+      <div className="sticky top-0 z-10 bg-white border-b">
+        <div className="flex justify-between items-center px-6 py-4">
+          {/* Left side with hamburger for mobile/tablet */}
+          <div className="lg:hidden">
+            <Side1 />
           </div>
-        </header>
 
-        {/* Main Content */}
-        <main className="container mx-auto px-4 py-6 max-w-5xl">
+          {/* Title */}
+          <h1 className="text-xl lg:text-2xl font-bold text-[#1E3A8A]">
+            Teachers Dashboard
+          </h1>
+
+          {/* Right side notifications */}
+          { screenWidth > 768 && (
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell className="h-5 w-5 text-gray-600" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                  3
+                </span>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5 text-gray-600" />
+              </Button>
+            </div>
+          )}
+        
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="p-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Your existing content starts here */}
           {/* Upcoming Class/Meeting Card */}
           <Card className="mb-6 bg-[#1E3A8A] text-white">
-            <CardContent className="pt-6 pb-4">
-              {activeTab === "home" ? (
-                <>
-                  <h3 className="font-bold mb-1">Upcoming Class</h3>
-                  <p className="text-right text-sm mb-2">10:40 am, 14 Nov 2024</p>
-                  <div className="text-sm">
-                    <p>Subject : Economics</p>
-                    <p>Venue : 11 A2</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <h3 className="font-bold mb-1">Meeting Remainder</h3>
-                  <p className="text-right text-sm mb-2">10:40 am, 14 Nov 2024</p>
-                  <div className="text-sm">
-                    <p>Teacher&apos;s meet for the next event to be conducted.</p>
-                    <p>Time : 10:40 am, 14 Nov 2024</p>
-                    <p>Venue : 2nd floor Staff Room</p>
-                  </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
+  <CardContent className="p-4 sm:pt-6 sm:pb-4">
+    {activeTab === "home" ? (
+      <div className="flex flex-col space-y-3">
+        <div className="flex flex-col sm:flex-row sm:justify-between">
+          <h3 className="font-bold text-base sm:text-lg order-2 sm:order-1">Upcoming Class</h3>
+          <p className="text-xs sm:text-sm mb-2 sm:mb-0 order-1 sm:order-2">10:40 am, 14 Nov 2024</p>
+        </div>
+        <div className="flex flex-col space-y-1 text-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-gray-300 min-w-[70px]">Subject :</span>
+            <span>Economics</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-300 min-w-[70px]">Venue :</span>
+            <span>11 A2</span>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+          <h3 className="text-base sm:text-lg font-bold order-2 sm:order-1">Meeting Remainder</h3>
+          <p className="text-xs sm:text-sm mb-2 sm:mb-0 order-1 sm:order-2">
+            10:40 am, 14 Nov 2024
+          </p>
+        </div>
+        <div className="text-xs sm:text-sm space-y-2">
+          <p>Teacher&apos;s meet for the next event to be conducted.</p>
+          <div className="flex flex-col sm:flex-row sm:gap-8">
+            <p className="flex items-center gap-2">
+              <span className="text-gray-300">Time :</span>
+              <span>10:40 am, 14 Nov 2024</span>
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="text-gray-300">Venue :</span>
+              <span>2nd floor Staff Room</span>
+            </p>
+          </div>
+        </div>
+      </>
+    )}
+  </CardContent>
+</Card>
 
           {/* Navigation Buttons */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <Button 
               variant={activeTab === "home" ? "default" : "outline"}
-              className={`${activeTab === "home" ? "bg-[#1E3A8A] text-white" : "bg-white text-[#1E3A8A]"} border border-[#1E3A8A] hover:bg-blue-700 hover:text-white h-16`}
+              className={`${
+                activeTab === "home" ? "bg-[#1E3A8A] text-white" : "bg-white text-[#1E3A8A]"
+              } border border-[#1E3A8A] hover:bg-blue-700 hover:text-white h-12 sm:h-16 text-sm sm:text-base`}
               onClick={() => setActiveTab("home")}
             >
               Home Class
             </Button>
             <Button 
               variant={activeTab === "handling" ? "default" : "outline"}
-              className={`${activeTab === "handling" ? "bg-[#1E3A8A] text-white" : "bg-white text-[#1E3A8A]"} border border-[#1E3A8A] hover:bg-blue-700 hover:text-white h-16`}
+              className={`${
+                activeTab === "handling" ? "bg-[#1E3A8A] text-white" : "bg-white text-[#1E3A8A]"
+              } border border-[#1E3A8A] hover:bg-blue-700 hover:text-white h-12 sm:h-16 text-sm sm:text-base`}
               onClick={() => setActiveTab("handling")}
             >
               Handling Class
@@ -104,73 +191,87 @@ const EducationDashboard = () => {
             <>
                   {/* Class Attendance */}
                   <div className="mb-6">
-                  <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-bold text-[#1E3A8A]">Class Attendance</h2>
-                      <Button variant="outline" className="bg-[#1E3A8A] text-white hover:bg-blue-700 hover:text-white text-sm px-4 py-1 h-auto">
-                      Update Attendance
-                      </Button>
-                  </div>
-                  <Card className="border rounded-lg overflow-hidden">
-                      <CardContent className="p-4">
-                      <div className="flex items-start gap-6">
-                          <div className="relative w-20 h-20 flex-shrink-0">
-                          <div className="w-full h-full rounded-full border-4 border-slate-100 flex items-center justify-center">
-                              <div className="absolute top-0 left-0 w-full h-full">
-                              <svg viewBox="0 0 100 100" className="w-full h-full">
-                                  <circle
-                                  cx="50"
-                                  cy="50"
-                                  r="45"
-                                  fill="none"
-                                  stroke="#1e40af"
-                                  strokeWidth="10"
-                                  strokeDasharray="282.7"
-                                  strokeDashoffset={attendanceView === 'monthly' ? '73.5' : '50.5'}
-                                  transform="rotate(-90 50 50)"
-                                  />
-                              </svg>
-                              </div>
-                              <span className="text-xl font-bold">{attendanceView === 'monthly' ? '74%' : '80%'}</span>
-                          </div>
-                          </div>
-                          <div className="flex-1">
-                          <div className="flex justify-between items-center mb-2">
-                              <h3 className="font-bold text-[#1E3A8A]">November 2024</h3>
-                              <div className="flex gap-1">
-                              <button 
-                                  onClick={() => setAttendanceView('yearly')}
-                                  className={`w-6 h-6 flex items-center justify-center border border-gray-300 ${attendanceView === 'yearly' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-800'} text-xs`}
-                              >
-                                  Y
-                              </button>
-                              <button 
-                                  onClick={() => setAttendanceView('monthly')}
-                                  className={`w-6 h-6 flex items-center justify-center border border-gray-300 ${attendanceView === 'monthly' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-800'} text-xs`}
-                              >
-                                  M
-                              </button>
-                              </div>
-                          </div>
-                          <div className="space-y-2 text-sm">
-                <div className="flex items-center">
-                  <span className="w-36">Total Working days</span>
-                  <span className="font-medium">: {attendanceView === 'monthly' ? '20' : '180'}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-36">Class Strength</span>
-                  <span className="font-medium">: 56</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-36">Average Attendance</span>
-                  <span className="font-medium">: {attendanceView === 'monthly' ? '74%' : '82%'}</span>
-                </div>
-              </div>
+  <h2 className="text-xl font-bold text-[#1E3A8A] mb-4">Class Attendance</h2>
+  <Card className="border rounded-lg overflow-hidden">
+    <CardContent className="p-3 sm:p-4">
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+        {/* Attendance Circle */}
+        <div className="relative w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0">
+          <div className="w-full h-full rounded-full border-4 border-slate-100 flex items-center justify-center">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  fill="none"
+                  stroke="#1e40af"
+                  strokeWidth="10"
+                  strokeDasharray="282.7"
+                  strokeDashoffset={attendanceView === 'monthly' ? '73.5' : '50.5'}
+                  transform="rotate(-90 50 50)"
+                />
+              </svg>
+            </div>
+            <span className="text-2xl sm:text-xl font-bold">
+              {attendanceView === 'monthly' ? '74%' : '80%'}
+            </span>
+          </div>
+        </div>
 
-                          </div>
-                  </div>
-                  </CardContent>
-              </Card>
-              </div>
+        {/* Attendance Details */}
+        <div className="flex-1 w-full">
+          <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start mb-4 sm:mb-2">
+            <h3 className="font-bold text-[#1E3A8A] mb-2 sm:mb-0">November 2024</h3>
+            <div className="flex gap-1">
+              <button 
+                onClick={() => setAttendanceView('yearly')}
+                className={`w-8 h-8 sm:w-6 sm:h-6 flex items-center justify-center border border-gray-300 ${
+                  attendanceView === 'yearly' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-800'
+                } text-xs`}
+              >
+                Y
+              </button>
+              <button 
+                onClick={() => setAttendanceView('monthly')}
+                className={`w-8 h-8 sm:w-6 sm:h-6 flex items-center justify-center border border-gray-300 ${
+                  attendanceView === 'monthly' ? 'bg-[#1E3A8A] text-white' : 'bg-white text-gray-800'
+                } text-xs`}
+              >
+                M
+              </button>
+            </div>
+          </div>
+          
+          <div className="space-y-2 text-sm w-full">
+            <div className="flex items-center justify-between sm:justify-start">
+              <span className="sm:w-36">Total Working days</span>
+              <span className="font-medium">: {attendanceView === 'monthly' ? '20' : '180'}</span>
+            </div>
+            <div className="flex items-center justify-between sm:justify-start">
+              <span className="sm:w-36">Class Strength</span>
+              <span className="font-medium">: 56</span>
+            </div>
+            <div className="flex items-center justify-between sm:justify-start">
+              <span className="sm:w-36">Average Attendance</span>
+              <span className="font-medium">: {attendanceView === 'monthly' ? '74%' : '82%'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+  
+  {/* Update Attendance Button - Mobile */}
+  <div className="mt-4 w-full">
+    <Button 
+      variant="outline" 
+      className="w-full sm:w-auto bg-[#1E3A8A] text-white hover:bg-blue-700 hover:text-white text-sm px-4 py-2"
+    >
+      Update Attendance
+    </Button>
+  </div>
+</div>
 
 
 
@@ -185,7 +286,7 @@ const EducationDashboard = () => {
       See All
     </Button>
   </div>
-  <div className="space-y-3">
+  <div className="space-y-2 sm:space-y-3">
     {[1, 2, 3].map((term) => (
       <Card key={term} className="overflow-hidden border border-gray-200">
         <div className="flex h-full">
@@ -195,38 +296,14 @@ const EducationDashboard = () => {
               <p className="font-medium whitespace-nowrap">Examination Fee</p>
               <p className="text-sm text-gray-500 whitespace-nowrap">Term {term}</p>
             </div>
-{/* <<<<<<< HEAD
-            <div className="space-y-4">
-              {[1, 2, 3].map((term) => (
-                <Card key={term} className="overflow-hidden">
-                  <div className="flex">
-                    <div className="w-1 bg-blue-800 flex-shrink-0"></div>
-                    <div className="flex-1 p-4 flex justify-between items-center">
-                      <div>
-                        <p className="font-medium">Examination Fee</p>
-                        <p className="text-sm text-gray-500">Term {term}</p>
-                      </div>
-                      <div className="text-right mr-4">
-                        <p className="font-medium">Rs. 3,800.00</p>
-                        <p className="text-sm text-gray-500">Due 18 Dec &apos;24</p>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="m-2 bg-blue-800 text-white hover:bg-blue-700 hover:text-white text-xs h-auto py-1">
-                      Check Student Status
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-======= */}
             <div className="text-right mr-4 flex-shrink-0">
               <p className="font-medium whitespace-nowrap">Rs. 3,800.00</p>
               <p className="text-sm text-gray-500 whitespace-nowrap">Due 18 Dec &apos;24</p>
-{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
             </div>
           </div>
           <div className="flex items-center pr-2">
             <Button 
-              className="bg-[#1E3A8A] text-white hover:bg-blue-700 text-xs h-10 px-3 rounded whitespace-nowrap"
+              className="bg-[#1E3A8A] text-white hover:bg-blue-700 text-xs h-8 sm:h-10 px-2 sm:px-3 rounded whitespace-nowrap"
             >
               Check Student Status
             </Button>
@@ -278,75 +355,19 @@ const EducationDashboard = () => {
 
           {/* Class Discipline */}
           <div>
-{/* <<<<<<< HEAD
-            <h2 className="text-xl font-bold text-blue-800 mb-4">Class Discipline</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="pt-6">
-                  <h3 className="font-medium mb-2">Complaints</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Couple of students caught for misbehaviour in the Economics class.
-                  </p>
-                  <div className="text-sm text-gray-500">
-                    <p>Teacher : Divya S</p>
-                    <p>Date : 28 Nov &apos;24</p>
-                  </div>
-                  <div className="flex items-center gap-2 mt-4">
-                    <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
-                      <User className="h-full w-full p-1" />
-                    </div>
-                    <span className="text-sm">Teacher Name</span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-6">
-                  <h3 className="font-medium mb-2">Maintenance Issues</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Class projector not working efficiently.
-                  </p>
-                  <div className="text-sm text-gray-500">
-                    <p>Date : 28 Nov &apos;24</p>
-                  </div>
-                  <div className="flex items-center gap-2 mt-4">
-                    <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
-                      <User className="h-full w-full p-1" />
-                    </div>
-                    <span className="text-sm">Teacher Name</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-======= */}
   <h2 className="text-xl font-bold text-[#1E3A8A] mb-4">Class Discipline</h2>
-  <div className="flex overflow-x-auto pb-2 -mx-4 px-4 md:grid md:grid-cols-2 md:gap-4 md:overflow-x-visible">
-    <Card className="border border-gray-200 rounded-lg flex-shrink-0 w-[85%] mr-3 md:w-auto md:mr-0">
+  <div className="relative">
+    <Card className="border border-gray-200 rounded-lg w-full">
       <CardContent className="p-4">
-        <h3 className="font-medium mb-2">Complaints</h3>
+        <h3 className="font-medium mb-2">{disciplineItems[currentDisciplineIndex].title}</h3>
         <p className="text-sm text-gray-600 mb-3">
-          Couple of students caught for misbehaviour in the Economics class.
+          {disciplineItems[currentDisciplineIndex].description}
         </p>
         <div className="text-sm text-gray-500">
-          <p>Teacher : Divya S</p>
-          <p>Date : 28 Nov &apos;24</p>
-        </div>
-        <div className="flex items-center gap-2 mt-3">
-          <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
-            <User className="h-full w-full p-1" />
-{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
-          </div>
-          <span className="text-sm">Teacher Name</span>
-        </div>
-      </CardContent>
-    </Card>
-    <Card className="border border-gray-200 rounded-lg flex-shrink-0 w-[85%] md:w-auto">
-      <CardContent className="p-4">
-        <h3 className="font-medium mb-2">Maintenance Issues</h3>
-        <p className="text-sm text-gray-600 mb-3">
-          Class projector not working efficiently.
-        </p>
-        <div className="text-sm text-gray-500">
-          <p>Date : 28 Nov &apos;24</p>
+          {disciplineItems[currentDisciplineIndex].teacher && (
+            <p>Teacher: {disciplineItems[currentDisciplineIndex].teacher}</p>
+          )}
+          <p>Date: {disciplineItems[currentDisciplineIndex].date}</p>
         </div>
         <div className="flex items-center gap-2 mt-3">
           <div className="h-6 w-6 rounded-full bg-slate-300 overflow-hidden">
@@ -356,6 +377,35 @@ const EducationDashboard = () => {
         </div>
       </CardContent>
     </Card>
+    
+    <button
+      onClick={handlePrev}
+      className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md"
+      aria-label="Previous"
+    >
+      <ChevronLeft className="h-5 w-5 text-[#1E3A8A]" />
+    </button>
+    
+    <button
+      onClick={handleNext}
+      className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md"
+      aria-label="Next"
+    >
+      <ChevronRight className="h-5 w-5 text-[#1E3A8A]" />
+    </button>
+    
+    <div className="flex justify-center gap-2 mt-4">
+      {disciplineItems.map((_, index) => (
+        <button
+          key={index}
+          className={`w-2 h-2 rounded-full ${
+            index === currentDisciplineIndex ? 'bg-[#1E3A8A]' : 'bg-gray-300'
+          }`}
+          onClick={() => setCurrentDisciplineIndex(index)}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
   </div>
 </div>
         </>
@@ -390,7 +440,7 @@ const EducationDashboard = () => {
 
          {/* Marks and Notes */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <Card className="overflow-hidden">
+  <Card className="overflow-hidden relative">
     <CardContent className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-semibold text-[#1E3A8A]">Marks</h3>
@@ -405,65 +455,76 @@ const EducationDashboard = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="h-48">
-        <ChartContainer 
-          config={{
-            marks: {
-              label: "Marks",
-              color: "#1e40af"
-            }
-          }} 
-          className="w-full h-full"
-        >
-          <LineChart 
-            data={[
-              { month: "Sep", marks: 65 },
-              { month: "Oct", marks: 75 },
-              { month: "Nov", marks: 70 },
-              { month: "Dec", marks: 90 },
-              { month: "Jan", marks: 95 },
-              { month: "Feb", marks: 85 }
-            ]}
+      {/* Navigation buttons positioned on sides */}
+      <Button 
+        variant="ghost" 
+        className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2 hover:bg-gray-100/50"
+        onClick={() => {/* Handle previous */}}
+      >
+        <ChevronLeft className="h-6 w-6 text-gray-600" />
+      </Button>
+      <Button 
+        variant="ghost" 
+        className="absolute right-0 top-1/2 -translate-y-1/2 h-full px-2 hover:bg-gray-100/50"
+        onClick={() => {/* Handle next */}}
+      >
+        <ChevronRight className="h-6 w-6 text-gray-600" />
+      </Button>
+      
+      {/* Chart Content */}
+      <div className="px-8">
+        <div className="h-48">
+          <ChartContainer 
+            config={{
+              marks: {
+                label: "Marks",
+                color: "#1e40af"
+              }
+            }} 
+            className="w-full h-full"
           >
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="month" 
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-            />
-            <YAxis 
-              hide={true}
-              domain={[0, 100]}
-            />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Line 
-              type="monotone" 
-              dataKey="marks" 
-              stroke="#1e40af" 
-              strokeWidth={2}
-              dot={{ r: 4, fill: "#1e40af" }}
-              activeDot={{ r: 6 }}
-            />
-          </LineChart>
-        </ChartContainer>
-      </div>
-      <div className="flex justify-between text-xs mt-4">
-        <span>Sep</span>
-        <span>Oct</span>
-        <span>Nov</span>
-        <span>Dec</span>
-        <span>Jan</span>
-        <span>Feb</span>
-      </div>
-      <div className="flex justify-between text-xs mt-2">
-        <span>0%</span>
-        <span className="text-center">Class Average: 82%</span>
-        <span>100%</span>
+            <LineChart 
+              data={[
+                { month: "Sep", marks: 65 },
+                { month: "Oct", marks: 75 },
+                { month: "Nov", marks: 70 },
+                { month: "Dec", marks: 90 },
+                { month: "Jan", marks: 95 },
+                { month: "Feb", marks: 85 }
+              ]}
+            >
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis 
+                dataKey="month" 
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+              />
+              <YAxis 
+                hide={true}
+                domain={[0, 100]}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Line 
+                type="monotone" 
+                dataKey="marks" 
+                stroke="#1e40af" 
+                strokeWidth={2}
+                dot={{ r: 4, fill: "#1e40af" }}
+                activeDot={{ r: 6 }}
+              />
+            </LineChart>
+          </ChartContainer>
+        </div>
+        <div className="text-xs mt-4 text-center">
+          <span className="font-medium">Class Average: 82%</span>
+        </div>
       </div>
     </CardContent>
   </Card>
-  <Card className="overflow-hidden">
+
+  {/* Notes Card with Navigation */}
+  <Card className="overflow-hidden relative">
     <CardContent className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-semibold text-[#1E3A8A]">Recent Notes</h3>
@@ -478,97 +539,58 @@ const EducationDashboard = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="space-y-6">
-        {[
-          {
-            title: "Math Notes",
-            description: "Integration notes for Chapter 8",
-            date: "22 Nov &apos;24",
-            teacher: "Teacher Name"
-          },
-          {
-            title: "Economics Notes",
-            description: "Market structures and competition",
-            date: "18 Nov &apos;24",
-            teacher: "Teacher Name"
-          }
-        ].map((note, index) => (
-          <div key={index} className="flex justify-between items-start">
-            <div>
-              <h4 className="font-medium text-[#1E3A8A]">{note.title}</h4>
-              <p className="text-xs text-gray-500 mt-1">{note.description}</p>
-              <p className="text-xs text-gray-500 mt-1">Updated on {note.date}</p>
-              <div className="flex items-center gap-2 mt-2">
-                <div className="h-5 w-5 rounded-full bg-slate-300 overflow-hidden">
-                  <User className="h-full w-full p-0.5" />
-                </div>
-{/* <<<<<<< HEAD
-                <div className="h-40 flex items-center justify-center">
-                  <div className="w-full">
-                    <div className="flex justify-between text-xs mb-1">
-                      <span>0%</span>
-                      <span>Class Average: 82%</span>
-                      <span>100%</span>
-                    </div>
-                    <svg viewBox="0 0 200 100" className="w-full h-20">
-                      <polyline
-                        points="10,90 40,60 70,70 100,30 130,50 160,20 190,40"
-                        fill="none"
-                        stroke="#1e40af"
-                        strokeWidth="2"
-                      />
-                      <circle cx="10" cy="90" r="3" fill="#1e40af" />
-                      <circle cx="40" cy="60" r="3" fill="#1e40af" />
-                      <circle cx="70" cy="70" r="3" fill="#1e40af" />
-                      <circle cx="100" cy="30" r="3" fill="#1e40af" />
-                      <circle cx="130" cy="50" r="3" fill="#1e40af" />
-                      <circle cx="160" cy="20" r="3" fill="#1e40af" />
-                      <circle cx="190" cy="40" r="3" fill="#1e40af" />
-                    </svg>
+      
+      {/* Navigation buttons */}
+      <Button 
+        variant="ghost" 
+        className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2 hover:bg-gray-100/50"
+        onClick={() => {/* Handle previous */}}
+      >
+        <ChevronLeft className="h-6 w-6 text-gray-600" />
+      </Button>
+      <Button 
+        variant="ghost" 
+        className="absolute right-0 top-1/2 -translate-y-1/2 h-full px-2 hover:bg-gray-100/50"
+        onClick={() => {/* Handle next */}}
+      >
+        <ChevronRight className="h-6 w-6 text-gray-600" />
+      </Button>
+
+      {/* Notes Content */}
+      <div className="px-8">
+        <div className="space-y-6">
+          {[
+            {
+              title: "Math Notes",
+              description: "Integration notes for Chapter 8",
+              date: "22 Nov &apos;24",
+              teacher: "Teacher Name"
+            },
+            {
+              title: "Economics Notes",
+              description: "Market structures and competition",
+              date: "18 Nov &apos;24",
+              teacher: "Teacher Name"
+            }
+          ].map((note, index) => (
+            <div key={index} className="flex justify-between items-start">
+              <div>
+                <h4 className="font-medium text-[#1E3A8A]">{note.title}</h4>
+                <p className="text-xs text-gray-500 mt-1">{note.description}</p>
+                <p className="text-xs text-gray-500 mt-1">Updated on {note.date}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <div className="h-5 w-5 rounded-full bg-slate-300 overflow-hidden">
+                    <User className="h-full w-full p-0.5" />
                   </div>
+                  <span className="text-xs">{note.teacher}</span>
                 </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-medium">Recent Notes</h3>
-                  <Select defaultValue="11A2">
-                    <SelectTrigger className="w-[100px] h-8 text-xs">
-                      <SelectValue placeholder="Select class" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="11A2">11 A2</SelectItem>
-                      <SelectItem value="11A5">11 A5</SelectItem>
-                      <SelectItem value="12A3">12 A3</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-medium">Math Notes</h4>
-                    <p className="text-xs text-gray-500">Integration notes for Chapter 8</p>
-                    <p className="text-xs text-gray-500">Updated on 22 Nov &apos;24</p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <div className="h-5 w-5 rounded-full bg-slate-300 overflow-hidden">
-                        <User className="h-full w-full p-0.5" />
-                      </div>
-                      <span className="text-xs">Teacher Name</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-======= */}
-                <span className="text-xs">{note.teacher}</span>
               </div>
+              <Button variant="ghost" size="sm" className="text-[#1E3A8A]">
+                View
+              </Button>
             </div>
-            <Button variant="ghost" size="sm" className="text-[#1E3A8A]">
-              View
-            </Button>
-{/* >>>>>>> d720cf90efda2d2f32154caeaa4501b8079cb3b6 */}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </CardContent>
   </Card>
@@ -576,8 +598,12 @@ const EducationDashboard = () => {
 
         </>
       )}
-    </main>
+    </div>
   </div>
 </div>
-)}
+
+    </div>
+
+)};
+
 export default EducationDashboard;
