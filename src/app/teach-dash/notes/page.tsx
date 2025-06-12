@@ -240,18 +240,17 @@ export default function NotesPage() {
       <div className="flex-1 lg:ml-64 min-h-screen">
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white border-b">
-          <div className="flex justify-between items-center px-6 py-4">
-            {/* Left side with hamburger for mobile/tablet */}
+          <div className="flex justify-between items-center px-4 py-3"> {/* Reduced padding */}
             <div className="lg:hidden">
               <Side1 />
             </div>
 
-            {/* Title */}
-            <h1 className={`text-xl lg:text-2xl font-bold text-[#1E3A8A] ${screenWidth <= 768 ? 'text-lg' : ''}`}>
+            <h1 className={`text-base lg:text-2xl font-bold text-[#1E3A8A] ${
+              screenWidth <= 480 ? 'text-sm' : screenWidth <= 768 ? 'text-base' : ''
+            }`}>
               Digital Notes Space
             </h1>
 
-            {/* Right side notifications */}
             {screenWidth > 768 && (
               <div className="flex items-center gap-4">
                 <Button variant="ghost" size="icon" className="relative">
@@ -269,7 +268,7 @@ export default function NotesPage() {
         </div>
 
         {/* Main Content Area */}
-        <div className={`p-6 ${isSmallScreen ? 'p-3' : ''}`}>
+        <div className={`p-4 ${screenWidth <= 480 ? 'p-2' : ''}`}>
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Upload Dialog */}
             <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
@@ -398,12 +397,12 @@ export default function NotesPage() {
 
             {/* Mobile View Controls (320px - 520px) */}
             {screenWidth <= 520 ? (
-              <div className="space-y-4">
+              <div className="space-y-3"> {/* Reduced spacing */}
                 {/* Type Selector Dropdown */}
                 <div className="relative">
                   <Button
                     variant="outline"
-                    className="w-full flex justify-between items-center"
+                    className="w-full flex justify-between items-center text-sm py-2 px-3" // Smaller text and padding
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsTypeDropdownOpen(!isTypeDropdownOpen);
@@ -423,8 +422,8 @@ export default function NotesPage() {
                   
                   <div 
                     className={`
-                      absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg
-                      transition-all duration-200 origin-top
+                      absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg text-sm
+                      transition-all duration-200 origin-top max-h-[200px] overflow-y-auto
                       ${isTypeDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
                     `}
                   >
@@ -452,7 +451,7 @@ export default function NotesPage() {
                 <div className="relative">
                   <Button
                     variant="outline"
-                    className="w-full flex justify-between items-center"
+                    className="w-full flex justify-between items-center text-sm py-2 px-3" // Smaller text and padding
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsSectionDropdownOpen(!isSectionDropdownOpen);
@@ -476,8 +475,8 @@ export default function NotesPage() {
                   
                   <div 
                     className={`
-                      absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg
-                      transition-all duration-200 origin-top
+                      absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg text-sm
+                      transition-all duration-200 origin-top max-h-[200px] overflow-y-auto
                       ${isSectionDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
                     `}
                   >
@@ -508,10 +507,10 @@ export default function NotesPage() {
                 {/* Upload Button */}
                 <Button 
                   variant="outline" 
-                  className="w-full"
+                  className="w-full text-sm py-2" // Smaller text and padding
                   onClick={() => setIsUploadDialogOpen(true)}
                 >
-                  <FilePlus className="w-4 h-4 mr-1" /> New {uploadType.charAt(0).toUpperCase() + uploadType.slice(1)}
+                  <FilePlus className="w-3 h-3 mr-1" /> New {uploadType.charAt(0).toUpperCase() + uploadType.slice(1)}
                 </Button>
               </div>
             ) : (
@@ -572,28 +571,28 @@ export default function NotesPage() {
                             key={note.id}
                             className={`mt-2 ${note.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
                           >
-                            <CardContent className={`${isSmallScreen ? 'p-3' : 'p-4'}`}>
+                            <CardContent className={`${screenWidth <= 480 ? 'p-2' : 'p-3'}`}>
                               <div className="flex justify-between items-start">
-                                <div className="flex-1">
-                                  <p className={`font-semibold ${isSmallScreen ? 'text-sm' : ''}`}>{note.title}</p>
-                                  <p className={`${isSmallScreen ? 'text-xs' : 'text-sm'} ${note.isImportant ? "" : "text-muted-foreground"}`}>
+                                <div className="flex-1 min-w-0"> {/* Added min-width to prevent text overflow */}
+                                  <p className="text-sm font-semibold truncate">{note.title}</p>
+                                  <p className={`text-xs line-clamp-2 ${note.isImportant ? "" : "text-muted-foreground"}`}>
                                     {note.description}
                                   </p>
-                                  <p className={`${isSmallScreen ? 'text-xs' : 'text-sm'} mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
+                                  <p className={`text-xs mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
                                     Uploaded on {note.uploadDate}
                                   </p>
-                                  <p className={`${isSmallScreen ? 'text-xs' : 'text-sm'} mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
+                                  <p className={`text-xs mt-1 ${note.isImportant ? "" : "text-muted-foreground"}`}>
                                     👨‍🏫 {note.teacher}
                                   </p>
                                 </div>
                                 <button 
                                   onClick={() => toggleBookmark(note.id)}
-                                  className="ml-2"
+                                  className="ml-2 flex-shrink-0"
                                 >
                                   {note.isImportant ? (
-                                    <BookmarkCheck className={`${isSmallScreen ? 'w-4 h-4' : 'w-5 h-5'} text-white`} />
+                                    <BookmarkCheck className="w-3 h-3 text-white" />
                                   ) : (
-                                    <Bookmark className={`${isSmallScreen ? 'w-4 h-4' : 'w-5 h-5'} text-muted-foreground`} />
+                                    <Bookmark className="w-3 h-3 text-muted-foreground" />
                                   )}
                                 </button>
                               </div>
@@ -790,39 +789,41 @@ export default function NotesPage() {
                         key={item.id}
                         className={`mt-2 ${item.isImportant ? "bg-[#1E3A8A] text-white" : ""}`}
                       >
-                        <CardContent className="p-3">
+                        <CardContent className={`${screenWidth <= 480 ? 'p-2' : 'p-3'}`}>
                           <div className="flex justify-between items-start">
-                            <div className="flex-1">
-                              <p className="text-sm font-semibold">{item.title}</p>
-                              <p className={`text-xs ${item.isImportant ? "" : "text-muted-foreground"}`}>
+                            <div className="flex-1 min-w-0"> {/* Added min-width to prevent text overflow */}
+                              <p className="text-sm font-semibold truncate">{item.title}</p>
+                              <p className={`text-xs line-clamp-2 ${item.isImportant ? "" : "text-muted-foreground"}`}>
                                 {item.description}
                               </p>
                               <p className={`text-xs mt-1 ${item.isImportant ? "" : "text-muted-foreground"}`}>
                                 Uploaded on {item.uploadDate}
                               </p>
                               {item.type === 'assignment' && (
-                                <div className={`flex items-center text-xs gap-1 mt-1 ${item.isImportant ? "" : "text-muted-foreground"}`}>
-                                  <div className={`w-2 h-2 rounded-full ${
+                                <div className={`flex items-center text-xs gap-1 mt-1 flex-wrap ${
+                                  item.isImportant ? "" : "text-muted-foreground"
+                                }`}>
+                                  <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
                                     item.status === "overdue" ? "bg-red-500" :
                                     item.status === "completed" ? "bg-green-500" :
                                     "bg-blue-500"
                                   }`}></div>
-                                  <CalendarDays className="w-4 h-4" />
-                                  Due Date: {item.dueDate}
+                                  <CalendarDays className="w-3 h-3 flex-shrink-0" />
+                                  <span className="truncate">Due: {item.dueDate}</span>
                                 </div>
                               )}
-                              <p className={`text-xs mt-1 ${item.isImportant ? "" : "text-muted-foreground"}`}>
+                              <p className={`text-xs mt-1 truncate ${item.isImportant ? "" : "text-muted-foreground"}`}>
                                 👨‍🏫 {item.teacher}
                               </p>
                             </div>
                             <button 
                               onClick={() => toggleBookmark(item.id)}
-                              className="ml-2"
+                              className="ml-2 flex-shrink-0"
                             >
                               {item.isImportant ? (
-                                <BookmarkCheck className="w-4 h-4 text-white" />
+                                <BookmarkCheck className="w-3 h-3 text-white" />
                               ) : (
-                                <Bookmark className="w-4 h-4 text-muted-foreground" />
+                                <Bookmark className="w-3 h-3 text-muted-foreground" />
                               )}
                             </button>
                           </div>
