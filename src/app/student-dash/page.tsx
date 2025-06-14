@@ -86,6 +86,71 @@ export default function StudentDashboard() {
             </CardContent>
           </Card>
 
+          
+
+          {/* Attendance and Focus Mode */}
+          <div className="grid grid-cols-1 gap-4">
+           <Attendance />
+           <Marks />
+            
+            <FocusMode />
+          </div>
+
+          {/* Fee Payment Details */}
+         
+
+          
+
+
+          {/* Class Timetable */}
+          <Card className="rounded-xl">
+            <CardContent className="p-4">
+              <h2 className="text-blue-900 font-bold mb-3">Class Timetable</h2>
+              <div className="flex gap-1 mb-4">
+                {[
+                  { day: "M", active: true },
+                  { day: "Tu", active: false },
+                  { day: "W", active: false },
+                  { day: "Th", active: false },
+                  { day: "F", active: false },
+                  { day: "Sa", active: false }
+                ].map((item) => (
+                  <Button 
+                    key={item.day} 
+                    variant={item.active ? "default" : "outline"} 
+                    size="sm" 
+                    className={`h-7 px-2 ${item.active ? "bg-blue-900 text-white" : "text-blue-900"}`}
+                  >
+                    {item.day}
+                  </Button>
+                ))}
+              </div>
+              <div className="space-y-3">
+                {[
+                  { subject: "Mathematics", time: "7:30-8:10" },
+                  { subject: "Accountancy", time: "7:30-8:10" },
+                  { subject: "Business Studies", time: "7:30-8:10" }
+                ].map((item, index) => (
+                  <div key={index} className="flex justify-between items-center">
+                    <div>
+                      <p className="text-sm font-medium">{item.subject}</p>
+                      <p className="text-xs text-gray-500">{item.time}</p>
+                    </div>
+                    <Info className="h-4 w-4 text-gray-400" />
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+            {/* Upcoming Events */}
+          <Card className="rounded-xl">
+            <CardContent className="p-4">
+              <h2 className="text-blue-900 font-bold mb-3">Upcoming Events</h2>
+              <p className="text-sm text-gray-500">No upcoming events</p>
+            </CardContent>
+          </Card>
+
           <Card className="rounded-xl">
             <CardContent className="p-4">
               <h2 className="text-blue-900 font-bold mb-3">Fee Payment Details</h2>
@@ -158,69 +223,9 @@ export default function StudentDashboard() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Attendance and Focus Mode */}
-          <div className="grid grid-cols-1 gap-4">
-           <Attendance />
-           <Marks />
-            
-            <FocusMode />
-          </div>
-
-          {/* Fee Payment Details */}
-         
-
           
+        
 
-
-          {/* Class Timetable */}
-          <Card className="rounded-xl">
-            <CardContent className="p-4">
-              <h2 className="text-blue-900 font-bold mb-3">Class Timetable</h2>
-              <div className="flex gap-1 mb-4">
-                {[
-                  { day: "M", active: true },
-                  { day: "Tu", active: false },
-                  { day: "W", active: false },
-                  { day: "Th", active: false },
-                  { day: "F", active: false },
-                  { day: "Sa", active: false }
-                ].map((item) => (
-                  <Button 
-                    key={item.day} 
-                    variant={item.active ? "default" : "outline"} 
-                    size="sm" 
-                    className={`h-7 px-2 ${item.active ? "bg-blue-900 text-white" : "text-blue-900"}`}
-                  >
-                    {item.day}
-                  </Button>
-                ))}
-              </div>
-              <div className="space-y-3">
-                {[
-                  { subject: "Mathematics", time: "7:30-8:10" },
-                  { subject: "Accountancy", time: "7:30-8:10" },
-                  { subject: "Business Studies", time: "7:30-8:10" }
-                ].map((item, index) => (
-                  <div key={index} className="flex justify-between items-center">
-                    <div>
-                      <p className="text-sm font-medium">{item.subject}</p>
-                      <p className="text-xs text-gray-500">{item.time}</p>
-                    </div>
-                    <Info className="h-4 w-4 text-gray-400" />
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Upcoming Events */}
-          <Card className="rounded-xl">
-            <CardContent className="p-4">
-              <h2 className="text-blue-900 font-bold mb-3">Upcoming Events</h2>
-              <p className="text-sm text-gray-500">No upcoming events</p>
-            </CardContent>
-          </Card>
 
           {/* Math Notes */}
           <Card className="rounded-xl">
@@ -334,7 +339,111 @@ export default function StudentDashboard() {
           <Announcement />
 
           {/* Fee Payment Details */}
-          <Card className="col-span-full mb-6 ">
+         
+          <div/>
+
+          <div className="p-2  grid grid-cols-2  gap-6">
+            <Attendance />
+
+            {/* Marks */}
+           {/*<Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle>Marks</CardTitle>
+                <div className="relative">
+                  <select 
+                    className="appearance-none bg-blue-800 text-white px-4 py-1 pr-8 rounded"
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                  >
+                    <option>Maths</option>
+                    <option>Science</option>
+                    <option>English</option>
+                  </select>
+                  <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="h-40">
+                  <LineChart />
+                </div>
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                  <div className="text-center">
+                    <p>FT1 - 28/35</p>
+                    <p>FT1 - 28/35</p>
+                  </div>
+                  <div className="text-center">
+                    <p>FT1 - 28/35</p>
+                    <p>FT1 - 28/35</p>
+                  </div>
+                  <div className="text-center">
+                    <p>FT1 - 28/35</p>
+                    <p>FT1 - 28/35</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>*/}
+            <Marks />
+
+
+            {/* Class Timetable */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Class Timetable</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-6 gap-1 mb-4">
+                  {["M", "Tu", "W", "Th", "F", "Sa"].map((day) => (
+                    <div key={day} className={`text-center p-1 ${day === "M" ? "bg-blue-800 text-white" : "border"}`}>
+                      {day}
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-4">
+                  {[
+                    { subject: "Mathematics", time: "7:30-8:10" },
+                    { subject: "Accountancy", time: "7:30-8:10" },
+                    { subject: "Business Studies", time: "7:30-8:10" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">{item.subject}</p>
+                        <p className="text-sm text-gray-500">{item.time}</p>
+                      </div>
+                      <Info className="h-5 w-5 text-gray-400" />
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Focus Mode */}
+            <div className="bg-[#1A2234] rounded-lg overflow-hidden text-white relative">
+              <div className="absolute inset-0 z-0">
+                <Image 
+                  src="/focus-bg.gif" 
+                  alt="Focus Background" 
+                  fill 
+                  style={{ objectFit: "cover", opacity: 0.7 }}
+                  priority
+                />
+              </div>
+              <div className="p-6 flex flex-col items-center justify-center h-full relative z-10">
+                <h3 className="text-2xl font-bold mb-2">Focus Mode</h3>
+                <p className="mb-6">Pomodoro Timer</p>
+              </div>
+            </div>
+            </div>
+
+          
+           
+                    <div className="p-2  grid grid-cols-2  gap-6">
+
+
+            {/* Upcoming Events */}
+                        <div className="space-y-6">
+
+
+           <Card className="col-span-full mb-6 ">
             <CardHeader>
               <CardTitle>Fee Payment Details</CardTitle>
             </CardHeader>
@@ -432,108 +541,10 @@ export default function StudentDashboard() {
               </div>
             </CardContent>
           </Card>
-          <div/>
 
-          <div className="p-2  grid grid-cols-2  gap-6">
-            <Attendance />
-
-            {/* Marks */}
-           {/*<Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Marks</CardTitle>
-                <div className="relative">
-                  <select 
-                    className="appearance-none bg-blue-800 text-white px-4 py-1 pr-8 rounded"
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                  >
-                    <option>Maths</option>
-                    <option>Science</option>
-                    <option>English</option>
-                  </select>
-                  <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white" />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="h-40">
-                  <LineChart />
-                </div>
-                <div className="grid grid-cols-3 gap-4 mt-4">
-                  <div className="text-center">
-                    <p>FT1 - 28/35</p>
-                    <p>FT1 - 28/35</p>
-                  </div>
-                  <div className="text-center">
-                    <p>FT1 - 28/35</p>
-                    <p>FT1 - 28/35</p>
-                  </div>
-                  <div className="text-center">
-                    <p>FT1 - 28/35</p>
-                    <p>FT1 - 28/35</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>*/}
-            <Marks />
-
-
-            {/* Class Timetable */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Class Timetable</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-6 gap-1 mb-4">
-                  {["M", "Tu", "W", "Th", "F", "Sa"].map((day) => (
-                    <div key={day} className={`text-center p-1 ${day === "M" ? "bg-blue-800 text-white" : "border"}`}>
-                      {day}
-                    </div>
-                  ))}
-                </div>
-                <div className="space-y-4">
-                  {[
-                    { subject: "Mathematics", time: "7:30-8:10" },
-                    { subject: "Accountancy", time: "7:30-8:10" },
-                    { subject: "Business Studies", time: "7:30-8:10" },
-                  ].map((item, i) => (
-                    <div key={i} className="flex justify-between items-center">
-                      <div>
-                        <p className="font-medium">{item.subject}</p>
-                        <p className="text-sm text-gray-500">{item.time}</p>
-                      </div>
-                      <Info className="h-5 w-5 text-gray-400" />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Focus Mode */}
-            <div className="bg-[#1A2234] rounded-lg overflow-hidden text-white relative">
-              <div className="absolute inset-0 z-0">
-                <Image 
-                  src="/focus-bg.gif" 
-                  alt="Focus Background" 
-                  fill 
-                  style={{ objectFit: "cover", opacity: 0.7 }}
-                  priority
-                />
-              </div>
-              <div className="p-6 flex flex-col items-center justify-center h-full relative z-10">
-                <h3 className="text-2xl font-bold mb-2">Focus Mode</h3>
-                <p className="mb-6">Pomodoro Timer</p>
-              </div>
             </div>
 
-            {/* Upcoming Events */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Upcoming Events</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>No upcoming events</p>
-              </CardContent>
-            </Card>
+            
 
             {/* Math Notes */}
             <div className="space-y-6">
@@ -561,7 +572,23 @@ export default function StudentDashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-[#1E3A8A] text-white">
+              
+            <Card>
+              <CardHeader>
+                <CardTitle>Upcoming Events</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>No upcoming events</p>
+              </CardContent>
+            </Card>
+
+              
+            </div>
+
+           
+          </div>
+
+            <Card className="bg-[#1E3A8A] text-white">
                 <CardHeader>
                   <CardTitle>Upcoming Examinations</CardTitle>
                 </CardHeader>
@@ -572,8 +599,6 @@ export default function StudentDashboard() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </div>
         </div>
       </div>
     </div>
