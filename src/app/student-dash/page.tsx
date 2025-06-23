@@ -11,6 +11,7 @@ import Attendance from "../dash-comp/attendance";
 import Announcement from "../dash-comp/announcement";
 import Marks from "../dash-comp/marks";
 import FocusMode from "../dash-comp/focusmode";
+import ProfileStats from "@/app/student-dash/dash-comp/ProfileStats";
 
 export default function StudentDashboard() {
   const [isMobile, setIsMobile] = useState(false);
@@ -90,6 +91,7 @@ export default function StudentDashboard() {
 
           {/* Attendance and Focus Mode */}
           <div className="grid grid-cols-1 gap-4">
+            <ProfileStats />
            <Attendance />
            <Marks />
             
@@ -255,15 +257,18 @@ export default function StudentDashboard() {
             <CardContent className="p-4">
               <div className="flex justify-between items-center mb-3">
                 <h2 className="text-blue-900 font-bold">Marks</h2>
-                <select 
-                  className="text-xs border rounded p-1 bg-blue-900 text-white"
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                >
-                  <option>Maths</option>
-                  <option>Science</option>
-                  <option>English</option>
-                </select>
+                <div className="relative">
+                  <select 
+                    className="appearance-none bg-blue-800 text-white px-4 py-1 pr-8 rounded"
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                  >
+                    <option>Maths</option>
+                    <option>Science</option>
+                    <option>English</option>
+                  </select>
+                  <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white" />
+                </div>
               </div>
               <div className="h-32 mb-3">
                 <ResponsiveContainer width="100%" height="100%">
@@ -337,6 +342,7 @@ export default function StudentDashboard() {
         {/* Content */}
         <div className="p-6 grid grid-cols-1   ">
           <Announcement />
+          <ProfileStats />
 
           {/* Fee Payment Details */}
          
